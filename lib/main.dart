@@ -1,66 +1,47 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:note_app/features/login/view/login_view.dart';
+import 'package:note_app/network/endpoint.dart';
+import 'core/init/theme/theme_manager.dart';
+import 'features/login/cubit/cubit/login_cubit.dart';
+import 'network/repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 
 void main() {
-  runApp(const MyApp());
+  final noteRepository =
+      NoteRepository(dio: Dio(BaseOptions(baseUrl: EndPoint.baseUrl)));
+  runApp(MyApp(noteRepository: noteRepository));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.noteRepository}) : super(key: key);
+  final NoteRepository noteRepository;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginCubit>(
+          create: (context) => LoginCubit(noteRepository),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      ],
+      child: DynamicTheme(
+        builder: (context, themeData) => MaterialApp(
+          title: 'Private Notes',
+          debugShowCheckedModeBanner: false,
+          theme: themeData,
+          home: LoginView(noteRepository: noteRepository),
+        ),
+        themeCollection: ThemeCollection(
+          themes: {
+            1: ThemeManager.theme,
+            0: ThemeManager.darkTheme,
+          },
+        ),
       ),
     );
   }

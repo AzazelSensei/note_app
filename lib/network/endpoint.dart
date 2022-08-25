@@ -6,7 +6,7 @@ class EndPoint {
 
   static const String register = 'register/';
 
-  static const String getUser = 'task/';
+  static const String getUser = 'task/'; 
 
-  
+
 }
