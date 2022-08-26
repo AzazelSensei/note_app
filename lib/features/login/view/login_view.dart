@@ -6,7 +6,9 @@ import 'package:note_app/core/extension/ui_extension.dart';
 import 'package:note_app/core/init/theme/theme_manager.dart';
 import 'package:note_app/features/login/cubit/cubit/login_cubit.dart';
 import 'package:note_app/network/repository.dart';
+import 'package:getwidget/getwidget.dart';
 
+import '../../../core/utils/toast.dart';
 import '../widget/mode_switcher.dart';
 
 class LoginView extends StatefulWidget {
@@ -56,10 +58,17 @@ class _LoginViewState extends State<LoginView> {
                 keyboardType: TextInputType.text,
                 controller: _usernameController,
                 decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  hintStyle: TextStyle(color: Colors.white),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.white, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(15)),
                   hintText: 'Username',
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: Icon(Icons.person, color: Colors.white),
                 ),
               ),
               SizedBox(height: context.normalWidth * 0.1),
@@ -68,17 +77,23 @@ class _LoginViewState extends State<LoginView> {
                 controller: _passwordController,
                 obscureText: !isVisible,
                 decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  hintStyle: TextStyle(color: Colors.white),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.white, width: 2.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(15)),
                   hintText: 'Password',
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Icon(Icons.lock, color: Colors.white),
                   suffixIcon: IconButton(
                     icon: Icon(
                       isVisible ? Icons.visibility : Icons.visibility_off,
                       color: Theme.of(context).primaryColor,
                     ),
                     onPressed: () {
-                      // Update the state i.e. toogle the state of passwordVisible variable
                       setState(() {
                         isVisible = !isVisible;
                       });
@@ -86,15 +101,48 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
-              ElevatedButton(
-                style: ButtonStyle(),
-                child: Text('Login'),
-                onPressed: () {},
+              SizedBox(height: context.normalWidth * 0.15),
+              BlocConsumer<LoginCubit, LoginState>(
+                listener: (context, state) {
+                  if (state is LoginSuccess) {
+                    toastMessage(
+                      mess: ' Hoş Geldiniz :)',
+                      toastType: ToastType.success,
+                    );
+                  } else if (state is LoginError) {
+                    toastMessage(
+                      mess: 'Error: ${state.message}',
+                      toastType: ToastType.error,
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return loginButton(context);
+                },
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget loginButton(BuildContext context) {
+    return GFButton(
+        borderShape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        onPressed: () {
+          context
+              .read<LoginCubit>()
+              .login(_usernameController.text, _passwordController.text);
+        },
+        text: "Giriş Yap",
+        textStyle: const TextStyle(
+            color: Color.fromARGB(255, 255, 255, 255),
+            fontSize: 22,
+            fontWeight: FontWeight.bold),
+        size: 65,
+        fullWidthButton: true,
+        color: const Color(0xFF937DC2));
   }
 }

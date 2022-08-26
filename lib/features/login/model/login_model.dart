@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-LoginModelPost pokedexResultFromJson(String str) =>
+LoginModelPost loginResultFromJson(String str) =>
     LoginModelPost.fromJson(json.decode(str));
 
 String pokedexResultToJson(LoginModelPost data) => json.encode(data.toJson());

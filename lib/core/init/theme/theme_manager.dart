@@ -32,15 +32,15 @@ class ThemeManager {
           color: ColorManager.lightGrey,
         ),
         textTheme: TextManager.textStyle,
-        buttonTheme: ButtonThemeData(
+        buttonTheme: const ButtonThemeData(
           buttonColor: Color(0xFF937DC2),
           textTheme: ButtonTextTheme.primary,
         ),
       );
 
   static ThemeData get darkTheme => ThemeData(
-        primaryColor: Color.fromARGB(255, 255, 255, 255),
-        primaryColorLight: Color.fromARGB(255, 255, 255, 255),
+        primaryColor: const Color.fromARGB(255, 255, 255, 255),
+        primaryColorLight: const Color.fromARGB(255, 255, 255, 255),
         brightness: Brightness.dark,
         platform: TargetPlatform.android,
         appBarTheme: const AppBarTheme(

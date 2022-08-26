@@ -9,7 +9,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   final NoteRepository noteRepository;
 
-  Future<void> login(String username, String password) async {
+  Future<void> login(String username, String password ) async {
     emit(LoginLoading());
 
     try {
