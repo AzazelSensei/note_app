@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import, depend_on_referenced_packages, must_call_super
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
+    return BlocProvider(
       create: (context) => LoginCubit(widget.noteRepository),
       child: Scaffold(
         appBar: AppBar(
@@ -106,19 +106,18 @@ class _LoginViewState extends State<LoginView> {
                 listener: (context, state) {
                   if (state is LoginSuccess) {
                     toastMessage(
-                      mess: ' Hoş Geldiniz :)',
+                      mess:
+                          ' Hoş Geldiniz, ${state.message},${state.statusCode}',
                       toastType: ToastType.success,
                     );
                   } else if (state is LoginError) {
                     toastMessage(
-                      mess: 'Error: ${state.message}',
+                      mess: 'Hata: ${state.message},${state.statusCode}',
                       toastType: ToastType.error,
                     );
                   }
                 },
-                builder: (context, state) {
-                  return loginButton(context);
-                },
+                builder: (context, state) => loginButton,
               ),
             ],
           ),
@@ -127,22 +126,20 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget loginButton(BuildContext context) {
-    return GFButton(
-        borderShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        onPressed: () {
-          context
-              .read<LoginCubit>()
-              .login(_usernameController.text, _passwordController.text);
-        },
-        text: "Giriş Yap",
-        textStyle: const TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
-            fontSize: 22,
-            fontWeight: FontWeight.bold),
-        size: 65,
-        fullWidthButton: true,
-        color: const Color(0xFF937DC2));
-  }
+  Widget get loginButton => GFButton(
+      borderShape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      onPressed: () {
+        context.read<LoginCubit>().login(
+            username: _usernameController.text,
+            password: _passwordController.text);
+      },
+      text: "Sign In",
+      textStyle: const TextStyle(
+          color: Color.fromARGB(255, 255, 255, 255),
+          fontSize: 22,
+          fontWeight: FontWeight.bold),
+      size: 65,
+      fullWidthButton: true,
+      color: const Color(0xFF937DC2));
 }
