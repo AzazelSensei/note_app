@@ -13,7 +13,7 @@ import 'package:dynamic_themes/dynamic_themes.dart';
 
 void main() {
   final noteRepository =
-      NoteRepository(dio: Dio(BaseOptions(baseUrl: EndPoint.baseUrl)));
+      NoteRepository( Dio(BaseOptions(baseUrl: EndPoint.baseUrl)));
   runApp(MyApp(noteRepository: noteRepository));
 }
 

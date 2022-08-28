@@ -1,17 +1,18 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:dio/dio.dart';
+import 'package:note_app/features/login/model/search_model.dart';
 import 'package:note_app/features/register/model/register_model.dart';
 import '../features/login/model/login_model.dart';
 import 'package:note_app/network/endpoint.dart';
 
 class NoteRepository {
-  final Dio dio;
+  final Dio _dio;
 
-  NoteRepository({required this.dio});
+  NoteRepository(this._dio);
 
   Future<LoginModelPost> login(String username, String password) async {
-    final response = await dio.post(EndPoint.login, data: {
+    final response = await _dio.post(EndPoint.login, data: {
       'username': username,
       'password': password,
     });
@@ -23,11 +24,32 @@ class NoteRepository {
     }
   }
 
+  //durdur
   Future<RegisterModelPost> register(String username, String password) async {
-    final response = await dio.post(EndPoint.register, data: {
+    final response = await _dio.post(EndPoint.register, data: {
       'username': username,
       'password': password,
     });
     return RegisterModelPost.fromJson(response.data);
+  }
+
+  Future<SearchResult> search({required String token, String name = ''}) async {
+    final response = await _dio.get(
+      EndPoint.getSearch,
+      queryParameters: {
+        'name': name,
+      },
+      options: Options(
+        headers: {
+          'TaskManagerKey': token,
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return SearchResult.fromJson(response.data);
+    } else {
+      throw response.statusMessage.toString();
+    }
   }
 }

@@ -20,16 +20,24 @@ class LoginCubit extends Cubit<LoginState> {
       if (username.isEmpty || password.isEmpty) {
         throw 'Kullanıcı Adı veya Şifre Boş Olamaz';
       } else if (username.isNotEmpty) {
-        var response = await Dio().post('http://192.168.1.102:5000/login/',
-            data: {'username': 'admin', 'password': 'admin'});
-        print(response.data.toString());
+        final response = await noteRepository.login(username, password);
       }
-
-      // final response = await noteRepository.login(username, password);
-      // emit(LoginSuccess(
-      // message: response.message, statusCode: response.statusCode));
+      final response = await noteRepository.login(username, password);
+      emit(LoginSuccess(
+          message: response.message, statusCode: response.statusCode));
+    } on DioError catch (e) {
+      emit(
+        LoginError(
+          message: e.response != null
+              ? e.response!.statusMessage!.toString()
+              : 'Dio Error',
+          statusCode:
+              e.response != null ? e.response!.statusCode!.toString() : '',
+        ),
+      );
+      print(e.toString());
     } catch (e) {
-      emit(LoginError(message: e.toString(), statusCode: e.toString()));
+      print(e.toString());
     }
   }
 }
