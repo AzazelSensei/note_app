@@ -1,14 +1,17 @@
+// ignore_for_file: prefer_initializing_formals
+
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
-    required TextEditingController usernameController,
-    required this.hintText, required this.icon,
-  })  : _usernameController = usernameController,
+    required TextEditingController xController,
+    required this.hintText,
+    required this.icon,
+  })  : xController = xController,
         super(key: key);
 
-  final TextEditingController _usernameController;
+  final TextEditingController xController;
   final String hintText;
   final Icon icon;
 
@@ -16,10 +19,10 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
-      controller: _usernameController,
+      controller: xController,
       decoration: InputDecoration(
         fillColor: Colors.white,
-        hintStyle: TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.white, width: 2.0),
           borderRadius: BorderRadius.circular(15.0),

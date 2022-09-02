@@ -52,4 +52,22 @@ class NoteRepository {
       throw response.statusMessage.toString();
     }
   }
+
+  Future<SearchResult> taskget(
+      {required String token}) async {
+    final response = await _dio.get(
+      EndPoint.getTasks,
+      options: Options(
+        headers: {
+          'TaskManagerKey': token,
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return SearchResult.fromJson(response.data);
+    } else {
+      throw response.statusMessage.toString();
+    }
+  }
 }

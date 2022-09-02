@@ -10,6 +10,9 @@ import 'package:note_app/network/repository.dart';
 import 'package:getwidget/getwidget.dart';
 
 import '../../../core/utils/toast.dart';
+import '../widget/custom_logo.dart';
+import '../widget/custom_spacer.dart';
+import '../widget/custom_spacer2.dart';
 import '../widget/mode_switcher.dart';
 import '../widget/custom_textfield.dart';
 
@@ -51,33 +54,17 @@ class _LoginViewState extends State<LoginView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: context.normalWidth * 0.6,
-                child: Image(image: AssetImage('assets/priv_notes_logo.png')),
-              ),
-              SizedBox(height: context.normalWidth * 0.1),
+              CustomLogo(),
+              CustomSpacer(),
               CustomTextField(
-                usernameController: _usernameController,
+                xController: _usernameController,
                 hintText: 'Username',
                 icon: Icon(Icons.person, color: Colors.white),
               ),
-              SizedBox(height: context.normalWidth * 0.1),
+              CustomSpacer(),
               passwordField(context),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegisterView()));
-                  },
-                  child: Text(
-                    "I Don't Have a Account",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-              SizedBox(height: context.normalWidth * 0.15),
+              registerTextButton(context),
+              CustomSpacer2(),
               BlocConsumer<LoginCubit, LoginState>(
                 listener: (context, state) {
                   if (state is LoginSuccess) {
@@ -103,13 +90,29 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
+  TextButton registerTextButton(BuildContext context) {
+    return TextButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RegisterView(
+                        noteRepository: widget.noteRepository,
+                      )));
+        },
+        child: Text(
+          "I Don't Have a Account",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ));
+  }
+
   TextFormField passwordField(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
       controller: _passwordController,
       obscureText: !isVisible,
       decoration: InputDecoration(
-        fillColor: Colors.white,
+        // fillColor: Colors.white,
         hintStyle: TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.white, width: 2.0),

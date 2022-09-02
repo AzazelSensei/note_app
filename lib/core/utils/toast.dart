@@ -23,7 +23,7 @@ void toastMessage({
       msg: mess,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 3,
       backgroundColor: color,
       textColor: Colors.white,
       fontSize: 16.0);

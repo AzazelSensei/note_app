@@ -6,6 +6,7 @@ import 'package:note_app/features/login/view/login_view.dart';
 import 'package:note_app/network/endpoint.dart';
 import 'core/init/theme/theme_manager.dart';
 import 'features/login/cubit/cubit/login_cubit.dart';
+import 'features/register/cubit/cubit/register_cubit.dart';
 import 'network/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
@@ -13,8 +14,10 @@ import 'package:dynamic_themes/dynamic_themes.dart';
 
 void main() {
   final noteRepository =
-      NoteRepository( Dio(BaseOptions(baseUrl: EndPoint.baseUrl)));
-  runApp(MyApp(noteRepository: noteRepository));
+      NoteRepository(Dio(BaseOptions(baseUrl: EndPoint.baseUrl)));
+  runApp(MyApp(
+    noteRepository: noteRepository,
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -27,6 +30,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<LoginCubit>(
           create: (context) => LoginCubit(noteRepository),
+        ),
+        BlocProvider<RegisterCubit>(
+          create: (context) => RegisterCubit(noteRepository),
         ),
       ],
       child: DynamicTheme(

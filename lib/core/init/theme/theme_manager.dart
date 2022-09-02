@@ -31,7 +31,50 @@ class ThemeManager {
           size: 30,
           color: ColorManager.lightGrey,
         ),
-        textTheme: TextManager.textStyle,
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+            fontSize: 22,
+            height: 1,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+          headline2: TextStyle(
+            fontSize: 17,
+            height: 1.4,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+          subtitle1: TextStyle(
+            fontSize: 16,
+            height: 1.3,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+          subtitle2: TextStyle(
+            fontSize: 14,
+            height: 1.45,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+          bodyText1: TextStyle(
+            fontSize: 15,
+            height: 1.4,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
+          bodyText2: TextStyle(
+            fontSize: 14,
+            height: 1.4,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
+          overline: TextStyle(
+            fontSize: 11,
+            height: 1.4,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
+        ),
         buttonTheme: const ButtonThemeData(
           buttonColor: Color(0xFF937DC2),
           textTheme: ButtonTextTheme.primary,

@@ -1,4 +1,4 @@
-part of 'task_n_search_cubit.dart';
+part of 'task_get_cubit.dart';
 
 @immutable
 abstract class TaskNSearchState {}

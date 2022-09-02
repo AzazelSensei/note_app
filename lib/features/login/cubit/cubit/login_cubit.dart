@@ -20,11 +20,13 @@ class LoginCubit extends Cubit<LoginState> {
       if (username.isEmpty || password.isEmpty) {
         throw 'Kullanıcı Adı veya Şifre Boş Olamaz';
       } else if (username.isNotEmpty) {
+        // ignore: unused_local_variable
         final response = await noteRepository.login(username, password);
       }
       final response = await noteRepository.login(username, password);
       emit(LoginSuccess(
           message: response.message, statusCode: response.statusCode));
+      final token = response.message;
     } on DioError catch (e) {
       emit(
         LoginError(

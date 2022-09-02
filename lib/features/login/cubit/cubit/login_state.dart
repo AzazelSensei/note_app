@@ -10,6 +10,7 @@ class LoginLoading extends LoginState {}
 class LoginSuccess extends LoginState {
   final String? message;
   final String? statusCode;
+
   LoginSuccess({this.message, this.statusCode});
 }
 
