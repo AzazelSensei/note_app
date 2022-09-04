@@ -1,22 +1,6 @@
-// ignore_for_file: prefer_const_constructors, unused_import, depend_on_referenced_packages, must_call_super
+// ignore_for_file: must_call_super
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:note_app/core/extension/ui_extension.dart';
-import 'package:note_app/core/init/theme/theme_manager.dart';
-import 'package:note_app/features/login/cubit/cubit/login_cubit.dart';
-import 'package:note_app/features/register/view/register_view.dart';
-import 'package:note_app/network/repository.dart';
-import 'package:getwidget/getwidget.dart';
-
-import '../../../core/utils/toast.dart';
-import '../../main_page/cubit/cubit/task_get_cubit.dart';
-import '../../main_page/view/task_get_view.dart';
-import '../widget/custom_logo.dart';
-import '../widget/custom_spacer.dart';
-import '../widget/custom_spacer2.dart';
-import '../widget/mode_switcher.dart';
-import '../widget/custom_textfield.dart';
+import 'package:note_app/common_libs.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key, required this.noteRepository}) : super(key: key);
@@ -43,7 +27,7 @@ class _LoginViewState extends State<LoginView> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: Text("Private Notes Login"),
+          title: const Text("Private Notes Login"),
           actions: [
             Padding(
               padding: context.right,
@@ -56,17 +40,17 @@ class _LoginViewState extends State<LoginView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomLogo(),
-              CustomSpacer(),
+              const CustomLogo(),
+              const CustomSpacer(),
               CustomTextField(
                 xController: _usernameController,
                 hintText: 'Username',
-                icon: Icon(Icons.person, color: Colors.white),
+                icon: const Icon(Icons.person, color: Colors.white),
               ),
-              CustomSpacer(),
+              const CustomSpacer(),
               passwordField(context),
               registerTextButton(context),
-              CustomSpacer2(),
+              const CustomSpacer2(),
               BlocConsumer<LoginCubit, LoginState>(
                 listener: (context, state) {
                   if (state is LoginSuccess) {
@@ -123,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
                         noteRepository: widget.noteRepository,
                       )));
         },
-        child: Text(
+        child: const Text(
           "I Don't Have a Account",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ));
@@ -136,14 +120,14 @@ class _LoginViewState extends State<LoginView> {
       obscureText: !isVisible,
       decoration: InputDecoration(
         // fillColor: Colors.white,
-        hintStyle: TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.white, width: 2.0),
           borderRadius: BorderRadius.circular(15.0),
         ),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         hintText: 'Password',
-        prefixIcon: Icon(Icons.lock, color: Colors.white),
+        prefixIcon: const Icon(Icons.lock, color: Colors.white),
         suffixIcon: IconButton(
           icon: Icon(
             isVisible ? Icons.visibility : Icons.visibility_off,
@@ -188,7 +172,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.transparent,
-      title: Text('Private Notes Login'),
+      title: const Text('Private Notes Login'),
       actions: [
         Padding(
           padding: context.right,

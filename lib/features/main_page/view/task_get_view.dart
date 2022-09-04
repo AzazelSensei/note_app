@@ -1,9 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../cubit/cubit/task_get_cubit.dart';
+import 'package:note_app/common_libs.dart';
 
 class TaskGetView extends StatefulWidget {
   const TaskGetView({Key? key, required this.token}) : super(key: key);

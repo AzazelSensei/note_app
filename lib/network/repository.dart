@@ -1,10 +1,6 @@
-// ignore_for_file: depend_on_referenced_packages
-
-import 'package:dio/dio.dart';
-import 'package:note_app/features/login/model/search_model.dart';
+import 'package:note_app/common_libs.dart';
+import 'package:note_app/features/login/model/login_model.dart';
 import 'package:note_app/features/register/model/register_model.dart';
-import '../features/login/model/login_model.dart';
-import 'package:note_app/network/endpoint.dart';
 
 class NoteRepository {
   final Dio _dio;

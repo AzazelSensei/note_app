@@ -1,16 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, unused_import
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:note_app/features/login/view/login_view.dart';
-import 'package:note_app/network/endpoint.dart';
-import 'core/init/theme/theme_manager.dart';
-import 'features/login/cubit/cubit/login_cubit.dart';
-import 'features/register/cubit/cubit/register_cubit.dart';
-import 'network/repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:dynamic_themes/dynamic_themes.dart';
+import 'package:note_app/common_libs.dart';
 
 void main() {
   final noteRepository =
