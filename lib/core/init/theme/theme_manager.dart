@@ -87,6 +87,10 @@ class ThemeManager {
         brightness: Brightness.dark,
         platform: TargetPlatform.android,
         appBarTheme: const AppBarTheme(
+            systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarBrightness: Brightness.light,
+                statusBarIconBrightness: Brightness.light),
             backgroundColor: Color.fromARGB(255, 32, 31, 31),
             elevation: 0.0,
             centerTitle: true,
