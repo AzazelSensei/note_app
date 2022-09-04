@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<RegisterCubit>(
           create: (context) => RegisterCubit(noteRepository),
         ),
+        BlocProvider<TaskGetCubit>(
+          create: (context) => TaskGetCubit(noteRepository),
+        ),
       ],
       child: DynamicTheme(
         builder: (context, themeData) => MaterialApp(

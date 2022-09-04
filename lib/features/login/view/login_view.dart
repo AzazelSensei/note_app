@@ -75,12 +75,9 @@ class _LoginViewState extends State<LoginView> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BlocProvider(
-                          create: (context) =>
-                              TaskGetCubit(widget.noteRepository),
-                          child: TaskGetView(
-                            token: state.message!,
-                          ),
+                        builder: (context) => TaskGetView(
+                          noteRepository: widget.noteRepository,
+                          token: state.message!,
                         ),
                       ),
                     );
