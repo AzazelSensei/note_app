@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, avoid_print
+// ignore_for_file: depend_on_referenced_packages, avoid_print, unused_local_variable, duplicate_ignore
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,13 +20,14 @@ class LoginCubit extends Cubit<LoginState> {
       if (username.isEmpty || password.isEmpty) {
         throw 'Kullanıcı Adı veya Şifre Boş Olamaz';
       } else if (username.isNotEmpty) {
-        // ignore: unused_local_variable
         final response = await noteRepository.login(username, password);
       }
       final response = await noteRepository.login(username, password);
+
+      //Token adında değişken oluşturuldu
+      final token = response.message;
       emit(LoginSuccess(
           message: response.message, statusCode: response.statusCode));
-      final token = response.message;
     } on DioError catch (e) {
       emit(
         LoginError(

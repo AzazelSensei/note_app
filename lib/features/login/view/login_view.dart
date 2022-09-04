@@ -10,6 +10,8 @@ import 'package:note_app/network/repository.dart';
 import 'package:getwidget/getwidget.dart';
 
 import '../../../core/utils/toast.dart';
+import '../../main_page/cubit/cubit/task_get_cubit.dart';
+import '../../main_page/view/task_get_view.dart';
 import '../widget/custom_logo.dart';
 import '../widget/custom_spacer.dart';
 import '../widget/custom_spacer2.dart';
@@ -83,6 +85,27 @@ class _LoginViewState extends State<LoginView> {
                   return loginButton(context);
                 },
               ),
+              BlocConsumer<LoginCubit, LoginState>(
+                listener: (context, state) {
+                  if (state is LoginSuccess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider(
+                          create: (context) =>
+                              TaskGetCubit(widget.noteRepository),
+                          child: TaskGetView(
+                            token: state.message!,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return Container();
+                },
+              )
             ],
           ),
         ),

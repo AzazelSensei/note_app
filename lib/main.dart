@@ -15,9 +15,7 @@ import 'package:dynamic_themes/dynamic_themes.dart';
 void main() {
   final noteRepository =
       NoteRepository(Dio(BaseOptions(baseUrl: EndPoint.baseUrl)));
-  runApp(MyApp(
-    noteRepository: noteRepository,
-  ));
+  runApp(MyApp(noteRepository: noteRepository));
 }
 
 class MyApp extends StatelessWidget {
@@ -40,7 +38,9 @@ class MyApp extends StatelessWidget {
           title: 'Private Notes',
           debugShowCheckedModeBanner: false,
           theme: themeData,
-          home: LoginView(noteRepository: noteRepository),
+          home: LoginView(
+            noteRepository: noteRepository
+          ),
         ),
         themeCollection: ThemeCollection(
           themes: {

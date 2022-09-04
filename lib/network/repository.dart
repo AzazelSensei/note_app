@@ -53,8 +53,7 @@ class NoteRepository {
     }
   }
 
-  Future<SearchResult> taskget(
-      {required String token}) async {
+  Future<SearchResult> taskget({required String token}) async {
     final response = await _dio.get(
       EndPoint.getTasks,
       options: Options(

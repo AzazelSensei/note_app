@@ -1,6 +1,21 @@
 part of 'task_get_cubit.dart';
 
 @immutable
-abstract class TaskNSearchState {}
+abstract class TaskGetState {}
 
-class TaskNSearchInitial extends TaskNSearchState {}
+class TeskGetInitial extends TaskGetState {}
+
+class TaskGetLoading extends TaskGetState {}
+
+class TaskGetSuccess extends TaskGetState {
+  final List<Message>? message;
+  final String? statusCode;
+
+  TaskGetSuccess(this.message, this.statusCode);
+}
+
+class TaskGetError extends TaskGetState {
+  final List? message;
+  final String? statusCode;
+  TaskGetError({this.message, this.statusCode});
+}

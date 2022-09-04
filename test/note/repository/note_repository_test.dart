@@ -71,5 +71,25 @@ void main() {
         debugPrint(e.toString());
       }
     });
+
+    test('GET: /getTask request', () async {
+      try {
+        debugPrint(_token.toString());
+        expect(_token, isNotNull);
+        if (_token != null) {
+          final response = await _noteRepository.taskget(
+            token: _token!,
+          );
+
+          debugPrint(response.message.toString());
+          debugPrint(response.statusCode.toString());
+
+          expect(response.message, isNotNull);
+          expect(response.statusCode, equals('200'));
+        }
+      } catch (e) {
+        debugPrint(e.toString());
+      }
+    });
   });
 }
