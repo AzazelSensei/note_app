@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../network/repository.dart';
 import '../cubit/cubit/task_get_cubit.dart';
 
 class TaskGetView extends StatefulWidget {
@@ -24,12 +23,14 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Task Get"),
-      ),
-      body: const BlocBuilder<TaskGetCubit, TaskGetState>(
-        builder: _builder,
+    return SelectionArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Task Get"),
+        ),
+        body: const BlocBuilder<TaskGetCubit, TaskGetState>(
+          builder: _builder,
+        ),
       ),
     );
   }
