@@ -87,7 +87,7 @@ class ThemeManager {
         brightness: Brightness.dark,
         platform: TargetPlatform.android,
         appBarTheme: const AppBarTheme(
-            backgroundColor: Color(0xff323232),
+            backgroundColor: Color.fromARGB(255, 32, 31, 31),
             elevation: 0.0,
             centerTitle: true,
             titleTextStyle: TextStyle(
