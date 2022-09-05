@@ -89,4 +89,25 @@ class NoteRepository {
       throw response.statusMessage.toString();
     }
   }
+
+  Future<SearchResult> taskDelete(
+      {required String token, required int id}) async {
+    final response = await _dio.delete(
+      EndPoint.getTasks,
+      data: {
+        'id': id,
+      },
+      options: Options(
+        headers: {
+          'TaskManagerKey': token,
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return SearchResult.fromJson(response.data);
+    } else {
+      throw response.statusMessage.toString();
+    }
+  }
 }
