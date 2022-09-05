@@ -67,11 +67,48 @@ class _TaskGetViewState extends State<TaskGetView> {
         child: CircularProgressIndicator(),
       );
     } else if (state is TaskGetSuccess) {
+              return Slidable(
+                key: UniqueKey(),
+                startActionPane: ActionPane(
+                  motion: const ScrollMotion(),
+                  dismissible: DismissiblePane(onDismissed: () {}),
+                  children: [
+                    SlidableAction(
+                      onPressed: (context) {
+                        context.read<TaskDeleteCubit>().taskDelete(
+                              token: widget.token,
+                              id: state.message![index].id!.toInt(),
+                            );
+                        _onRefresh();
+                      },
+                      backgroundColor: const Color(0xFFFE4A49),
+                      foregroundColor: Colors.white,
+                      icon: Icons.delete,
+                      label: 'Delete',
+                    ),
+                  ],
+                ),
+                endActionPane: const ActionPane(
+                  motion: ScrollMotion(),
+                  children: [
+                    SlidableAction(
+                      onPressed: null,
+                      backgroundColor: Color(0xFF0392CF),
+                      foregroundColor: Colors.white,
+                      icon: Icons.save,
+                      label: 'Save',
+                    ),
+                  ],
+                ),
                 child: ListTile(
                   title: Text(state.message?[index].name ?? ""),
                   subtitle: Text(state.message?[index].body ?? ""),
                   leading: const Icon(Icons.panorama_fish_eye_sharp),
                 ),
+              );
+            },
+          ),
+        ),
       );
     } else if (state is TaskGetError) {
       return Center(
