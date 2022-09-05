@@ -32,9 +32,7 @@ class MyApp extends StatelessWidget {
           title: 'Private Notes',
           debugShowCheckedModeBanner: false,
           theme: themeData,
-          home: LoginView(
-            noteRepository: noteRepository
-          ),
+          home: LoginView(noteRepository: noteRepository),
         ),
         themeCollection: ThemeCollection(
           themes: {
