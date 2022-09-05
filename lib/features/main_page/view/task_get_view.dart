@@ -25,6 +25,10 @@ class _TaskGetViewState extends State<TaskGetView> {
   void _onRefresh() =>
       context.read<TaskGetCubit>().taskGet(token: widget.token);
 
+  void _clearText() {
+    _titleController.clear();
+    _contentController.clear();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
