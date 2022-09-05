@@ -39,8 +39,6 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(),
       // body: SlidingUpPanel(
       //   maxHeight: MediaQuery.of(context).size.height * 0.5,
       //   minHeight: MediaQuery.of(context).size.height * 0.07,
@@ -62,6 +60,8 @@ class _TaskGetViewState extends State<TaskGetView> {
         TextEditingController().clear();
         _pc.close();
       },
+      child: Scaffold(
+        appBar: _appBar(),
           children: [
             Expanded(
               child: BlocBuilder<TaskGetCubit, TaskGetState>(
