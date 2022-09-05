@@ -1,5 +1,8 @@
 import 'package:note_app/common_libs.dart';
 import 'package:note_app/features/main_page/cubit/task_post_cubit/task_post_cubit.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
+import '../cubit/task_delete_cubit/task_delete_cubit.dart';
 
 class TaskGetView extends StatefulWidget {
   const TaskGetView(
