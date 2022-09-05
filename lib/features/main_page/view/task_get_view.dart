@@ -66,6 +66,13 @@ class _TaskGetViewState extends State<TaskGetView> {
         child: CircularProgressIndicator(),
       );
     } else if (state is TaskGetSuccess) {
+      return SizedBox(
+        child: RefreshIndicator(
+          color: Colors.black,
+          backgroundColor: Colors.white,
+          onRefresh: () async {
+            _onRefresh();
+          },
               return Slidable(
                 key: UniqueKey(),
                 startActionPane: ActionPane(
