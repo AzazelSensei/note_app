@@ -47,6 +47,7 @@ class _TaskGetViewState extends State<TaskGetView> {
       },
       child: Scaffold(
         appBar: _appBar(),
+        body: Column(
           children: [
             Expanded(
               child: BlocBuilder<TaskGetCubit, TaskGetState>(
@@ -63,14 +64,6 @@ class _TaskGetViewState extends State<TaskGetView> {
         child: CircularProgressIndicator(),
       );
     } else if (state is TaskGetSuccess) {
-      return ListView.builder(
-        itemCount: state.message?.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(state.message?[index].name ?? ""),
-            subtitle: Text(state.message?[index].body ?? ""),
-          );
-        },
                 child: ListTile(
                   title: Text(state.message?[index].name ?? ""),
                   subtitle: Text(state.message?[index].body ?? ""),
