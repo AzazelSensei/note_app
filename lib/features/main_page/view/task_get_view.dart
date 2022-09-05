@@ -60,16 +60,6 @@ class _TaskGetViewState extends State<TaskGetView> {
         builder: _builder,
       ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await context.read<TaskPostCubit>().taskPost(
-                token: widget.token,
-                name: "Manuel test",
-                body: "Manuel sayfasından test",
-              );
-          _onRefresh();
-        },
-        child: const Icon(Icons.add),
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
