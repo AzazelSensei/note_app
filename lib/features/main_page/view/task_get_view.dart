@@ -154,6 +154,10 @@ class _TaskGetViewState extends State<TaskGetView> {
                 name: _titleController.text,
                 body: _contentController.text,
               );
+          _onRefresh();
+          _clearText();
+          _closeKeyboard();
+          _pc.close();
         },
         text: "Add Task",
         textStyle: const TextStyle(
