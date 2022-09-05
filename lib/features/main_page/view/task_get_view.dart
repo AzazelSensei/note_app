@@ -56,6 +56,15 @@ class _TaskGetViewState extends State<TaskGetView> {
                 builder: _builder,
               ),
             ),
+                collapsed: GestureDetector(
+                  onTap: () => _pc.open(),
+                  child: const Center(
+                    child: Icon(
+                      Icons.add,
+                      size: 40,
+                    ),
+                  ),
+                ),
       ),
     );
   }
