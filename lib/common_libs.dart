@@ -28,7 +28,7 @@ export 'package:note_app/features/login/widget/custom_spacer.dart';
 export 'package:note_app/features/login/widget/custom_spacer2.dart';
 export 'package:note_app/features/login/widget/custom_textfield.dart';
 export 'package:note_app/features/login/widget/mode_switcher.dart';
-export 'package:note_app/features/main_page/cubit/cubit/task_get_cubit.dart';
+export 'package:note_app/features/main_page/cubit/task_get_cubit/task_get_cubit.dart';
 export 'package:note_app/features/main_page/view/task_get_view.dart';
 
 //models
