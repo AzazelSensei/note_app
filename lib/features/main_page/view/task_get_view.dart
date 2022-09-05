@@ -120,6 +120,7 @@ class _TaskGetViewState extends State<TaskGetView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextFormField(
+            maxLines: null,
             controller: _titleController,
             decoration: const InputDecoration(
               hintText: "Title",
@@ -128,6 +129,7 @@ class _TaskGetViewState extends State<TaskGetView> {
             ),
           ),
           TextFormField(
+            maxLines: null,
             controller: _contentController,
             decoration: const InputDecoration(
               hintText: "Content",
