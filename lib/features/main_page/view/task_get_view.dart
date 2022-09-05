@@ -56,16 +56,18 @@ class _TaskGetViewState extends State<TaskGetView> {
       //     topRight: Radius.circular(30.0),
       //   ),
       //   panel: _slidingPanel(),
-      body: BlocBuilder<TaskGetCubit, TaskGetState>(
-        builder: _builder,
-      ),
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         TextEditingController().clear();
         _pc.close();
       },
+          children: [
+            Expanded(
+              child: BlocBuilder<TaskGetCubit, TaskGetState>(
+                builder: _builder,
+              ),
+            ),
       ),
     );
   }
