@@ -17,9 +17,12 @@ export 'package:dio/dio.dart';
 export 'package:dynamic_themes/dynamic_themes.dart';
 export 'package:note_app/features/login/view/login_view.dart';
 export 'package:note_app/network/endpoint.dart';
+export 'package:sliding_up_panel/sliding_up_panel.dart';
+export 'package:note_app/core/extension/ui_extension.dart';
 
 //features
 export 'features/register/cubit/cubit/register_cubit.dart';
+export 'package:note_app/features/main_page/cubit/task_post_cubit/task_post_cubit.dart';
 
 //widgets
 export 'package:note_app/core/utils/toast.dart';
