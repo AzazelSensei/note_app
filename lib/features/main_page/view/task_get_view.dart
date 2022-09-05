@@ -39,21 +39,6 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   @override
   Widget build(BuildContext context) {
-      // body: SlidingUpPanel(
-      //   maxHeight: MediaQuery.of(context).size.height * 0.5,
-      //   minHeight: MediaQuery.of(context).size.height * 0.07,
-      //   color: const Color.fromARGB(255, 32, 31, 31),
-      //   collapsed: const Center(
-      //     child: Icon(
-      //       Icons.add,
-      //       size: 40,
-      //     ),
-      //   ),
-      //   borderRadius: const BorderRadius.only(
-      //     topLeft: Radius.circular(30.0),
-      //     topRight: Radius.circular(30.0),
-      //   ),
-      //   panel: _slidingPanel(),
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -86,6 +71,11 @@ class _TaskGetViewState extends State<TaskGetView> {
             subtitle: Text(state.message?[index].body ?? ""),
           );
         },
+                child: ListTile(
+                  title: Text(state.message?[index].name ?? ""),
+                  subtitle: Text(state.message?[index].body ?? ""),
+                  leading: const Icon(Icons.panorama_fish_eye_sharp),
+                ),
       );
     } else if (state is TaskGetError) {
       return Center(
