@@ -56,6 +56,13 @@ class _TaskGetViewState extends State<TaskGetView> {
                 builder: _builder,
               ),
             ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SlidingUpPanel(
+                controller: _pc,
+                maxHeight: MediaQuery.of(context).size.height * 0.5,
+                minHeight: MediaQuery.of(context).size.height * 0.07,
+                color: const Color.fromARGB(255, 32, 31, 31),
                 collapsed: GestureDetector(
                   onTap: () => _pc.open(),
                   child: const Center(
@@ -65,6 +72,15 @@ class _TaskGetViewState extends State<TaskGetView> {
                     ),
                   ),
                 ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+                panel: _slidingPanel(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
