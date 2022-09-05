@@ -29,6 +29,11 @@ class _TaskGetViewState extends State<TaskGetView> {
     _titleController.clear();
     _contentController.clear();
   }
+
+  void _closeKeyboard() {
+    FocusScope.of(context).unfocus();
+    TextEditingController().clear();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
