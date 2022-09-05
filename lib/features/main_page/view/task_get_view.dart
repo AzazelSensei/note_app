@@ -34,6 +34,9 @@ class _TaskGetViewState extends State<TaskGetView> {
     FocusScope.of(context).unfocus();
     TextEditingController().clear();
   }
+
+  final PanelController _pc = PanelController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +108,7 @@ class _TaskGetViewState extends State<TaskGetView> {
         ),
       ),
       automaticallyImplyLeading: false,
-      title: const Text("My Tasks"),
+      title: const Text("My Notes"),
     );
   }
 
