@@ -98,6 +98,9 @@ class _TaskGetViewState extends State<TaskGetView> {
           onRefresh: () async {
             _onRefresh();
           },
+          child: ListView.builder(
+            itemCount: state.message?.length,
+            itemBuilder: (context, index) {
               return Slidable(
                 key: UniqueKey(),
                 startActionPane: ActionPane(
