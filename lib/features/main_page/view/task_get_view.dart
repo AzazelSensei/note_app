@@ -70,6 +70,12 @@ class _TaskGetViewState extends State<TaskGetView> {
           _onRefresh();
         },
         child: const Icon(Icons.add),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        TextEditingController().clear();
+        _pc.close();
+      },
       ),
     );
   }
