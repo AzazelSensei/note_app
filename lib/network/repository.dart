@@ -65,4 +65,28 @@ class NoteRepository {
       throw response.statusMessage.toString();
     }
   }
+
+  Future<SearchResult> taskPost(
+      {required String token,
+      required String name,
+      required String body}) async {
+    final response = await _dio.post(
+      EndPoint.getTasks,
+      data: {
+        'name': name,
+        'body': body,
+      },
+      options: Options(
+        headers: {
+          'TaskManagerKey': token,
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return SearchResult.fromJson(response.data);
+    } else {
+      throw response.statusMessage.toString();
+    }
+  }
 }
