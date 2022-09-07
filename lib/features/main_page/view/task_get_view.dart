@@ -1,6 +1,9 @@
+// ignore_for_file: unused_field, depend_on_referenced_packages
+
 import 'package:note_app/common_libs.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
+import 'package:note_app/core/components/default_action_pane.dart';
+import 'package:note_app/core/components/default_button.dart';
 import '../cubit/task_delete_cubit/task_delete_cubit.dart';
 
 class TaskGetView extends StatefulWidget {
@@ -95,58 +98,36 @@ class _TaskGetViewState extends State<TaskGetView> {
         child: CircularProgressIndicator(),
       );
     } else if (state is TaskGetSuccess) {
-      return SizedBox(
-        child: RefreshIndicator(
-          color: Colors.black,
-          backgroundColor: Colors.white,
-          onRefresh: () async {
-            _onRefresh();
-          },
-          child: ListView.builder(
-            itemCount: state.message?.length,
-            itemBuilder: (context, index) {
-              return Slidable(
-                key: UniqueKey(),
-                startActionPane: ActionPane(
-                  motion: const ScrollMotion(),
-                  dismissible: DismissiblePane(onDismissed: () {}),
-                  children: [
-                    SlidableAction(
-                      onPressed: (context) {
-                        context.read<TaskDeleteCubit>().taskDelete(
-                              token: widget.token,
-                              id: state.message![index].id!.toInt(),
-                            );
-                        _onRefresh();
-                      },
-                      backgroundColor: const Color(0xFFFE4A49),
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      label: 'Delete',
-                    ),
-                  ],
-                ),
-                endActionPane: const ActionPane(
-                  motion: ScrollMotion(),
-                  children: [
-                    SlidableAction(
-                      onPressed: null,
-                      backgroundColor: Color(0xFF0392CF),
-                      foregroundColor: Colors.white,
-                      icon: Icons.save,
-                      label: 'Save',
-                    ),
-                  ],
-                ),
-                child: ListTile(
-                  title: Text(state.message?[index].name ?? ""),
-                  subtitle: Text(state.message?[index].body ?? ""),
-                  leading: const Icon(Icons.panorama_fish_eye_sharp),
-                ),
-              );
-            },
-          ),
-        ),
+      return ListView.builder(
+        itemCount: state.message?.length,
+        itemBuilder: (context, index) {
+          return Slidable(
+            key: ObjectKey(index),
+            closeOnScroll: false,
+            startActionPane: DefaultActionPane(
+              dismissible: DismissiblePane(
+                onDismissed: () async => await _onDeleted(state, index),
+              ),
+              onPressed: (context) async => await _onDeleted(state, index),
+              backgroundColor: const Color(0xFFFE4A49),
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'Delete',
+            ),
+            endActionPane: DefaultActionPane(
+              onPressed: (context) {},
+              backgroundColor: const Color(0xFF0392CF),
+              foregroundColor: Colors.white,
+              icon: Icons.edit,
+              label: 'Edit',
+            ),
+            child: ListTile(
+              title: Text(state.message?[index].name ?? ""),
+              subtitle: Text(state.message?[index].body ?? ""),
+              leading: const Icon(Icons.panorama_fish_eye_sharp),
+            ),
+          );
+        },
       );
     } else if (state is TaskGetError) {
       return Center(
