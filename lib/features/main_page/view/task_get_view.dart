@@ -5,11 +5,10 @@ import '../cubit/task_delete_cubit/task_delete_cubit.dart';
 
 class TaskGetView extends StatefulWidget {
   const TaskGetView(
-      {Key? key, required this.token, required this.noteRepository})
+      {Key? key, required this.token, })
       : super(key: key);
 
   final String token;
-  final NoteRepository noteRepository;
 
   @override
   State<TaskGetView> createState() => _TaskGetViewState();

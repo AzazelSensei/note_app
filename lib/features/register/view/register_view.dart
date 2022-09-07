@@ -16,9 +16,9 @@ import '../../login/widget/mode_switcher.dart';
 import '../cubit/cubit/register_cubit.dart';
 
 class RegisterView extends StatefulWidget {
-  const RegisterView({Key? key, required this.noteRepository})
-      : super(key: key);
-  final NoteRepository noteRepository;
+  const RegisterView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<RegisterView> createState() => _RegisterViewState();

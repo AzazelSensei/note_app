@@ -4,8 +4,8 @@ import 'package:note_app/common_libs.dart';
 import 'package:note_app/core/components/default_button.dart';
 
 class LoginView extends StatefulWidget {
-  const LoginView({Key? key, required this.noteRepository}) : super(key: key);
-  final NoteRepository noteRepository;
+  const LoginView({Key? key}) : super(key: key);
+
 
   @override
   State<LoginView> createState() => _LoginViewState();
