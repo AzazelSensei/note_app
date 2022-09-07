@@ -1,6 +1,7 @@
 // ignore_for_file: must_call_super
 
 import 'package:note_app/common_libs.dart';
+import 'package:note_app/core/components/default_button.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key, required this.noteRepository}) : super(key: key);
@@ -140,24 +141,15 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget loginButton(BuildContext context) {
-    return GFButton(
-        borderShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+  Widget get loginButton => DefaultButton(
         onPressed: () {
           context.read<LoginCubit>().login(
               username: _usernameController.text,
               password: _passwordController.text);
         },
         text: "Sign In",
-        textStyle: const TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
-            fontSize: 22,
-            fontWeight: FontWeight.bold),
-        size: 65,
-        fullWidthButton: true,
-        color: const Color(0xFF937DC2));
-  }
+        color: const Color(0xFF937DC2),
+      );
 }
 
 class CustomAppBar extends StatelessWidget {
