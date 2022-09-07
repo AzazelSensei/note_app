@@ -1,6 +1,7 @@
 import 'package:note_app/common_libs.dart';
 
 import 'features/main_page/cubit/task_delete_cubit/task_delete_cubit.dart';
+import 'features/main_page/cubit/task_update_cubit/task_update_cubit.dart';
 
 void main() {
   final noteRepository =
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<TaskDeleteCubit>(
           create: (context) => TaskDeleteCubit(noteRepository),
+        ),
+        BlocProvider<TaskUpdateCubit>(
+          create: (context) => TaskUpdateCubit(noteRepository),
         ),
       ],
       child: DynamicTheme(

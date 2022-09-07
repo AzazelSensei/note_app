@@ -50,7 +50,6 @@ class NoteRepository {
   }
 
   Future<SearchResult> taskget({required String token}) async {
-    
     final response = await _dio.get(
       EndPoint.getTasks,
       options: Options(
@@ -97,6 +96,32 @@ class NoteRepository {
       EndPoint.getTasks,
       data: {
         'id': id,
+      },
+      options: Options(
+        headers: {
+          'TaskManagerKey': token,
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return SearchResult.fromJson(response.data);
+    } else {
+      throw response.statusMessage.toString();
+    }
+  }
+
+  Future<SearchResult> taskUpdate(
+      {required String token,
+      required int id,
+      required String name,
+      required String body}) async {
+    final response = await _dio.patch(
+      EndPoint.getTasks,
+      data: {
+        'name': name,
+        'id': id,
+        'body': body,
       },
       options: Options(
         headers: {
