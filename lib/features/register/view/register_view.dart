@@ -1,19 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, unused_field
-
-import 'package:flutter/material.dart';
-import 'package:note_app/core/extension/ui_extension.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app/features/login/view/login_view.dart';
-
-import '../../../core/utils/toast.dart';
-import '../../../network/repository.dart';
-import '../../login/widget/custom_logo.dart';
-import '../../login/widget/custom_spacer.dart';
-import '../../login/widget/custom_spacer2.dart';
-import '../../login/widget/custom_textfield.dart';
-import '../../login/widget/mode_switcher.dart';
-import '../cubit/cubit/register_cubit.dart';
+import 'package:note_app/common_libs.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({
@@ -29,41 +14,38 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterCubit(widget.noteRepository),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: const Text(
-            "Register",
-          ),
-          actions: [
-            Padding(
-              padding: context.right,
-              child: const ModeSwitcher(),
-            )
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: const Text(
+          "Register",
         ),
-        body: Padding(
-          padding: context.lowHorPadding,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CustomLogo(),
-              const CustomSpacer(),
-              CustomTextField(
-                  xController: _usernameController,
-                  hintText: "Username",
-                  icon: const Icon(Icons.person, color: Colors.white)),
-              const CustomSpacer(),
-              CustomTextField(
-                  xController: _passwordController,
-                  hintText: "Username",
-                  icon: const Icon(Icons.lock, color: Colors.white)),
-              const CustomSpacer2(),
-              toastMessageNRoute(),
-            ],
-          ),
+        actions: [
+          Padding(
+            padding: context.right,
+            child: const ModeSwitcher(),
+          )
+        ],
+      ),
+      body: Padding(
+        padding: context.lowHorPadding,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CustomLogo(),
+            const CustomSpacer(),
+            CustomTextField(
+                xController: _usernameController,
+                hintText: "Username",
+                icon: const Icon(Icons.person, color: Colors.white)),
+            const CustomSpacer(),
+            CustomTextField(
+                xController: _passwordController,
+                hintText: "Username",
+                icon: const Icon(Icons.lock, color: Colors.white)),
+            const CustomSpacer2(),
+            toastMessageNRoute(),
+          ],
         ),
       ),
     );
