@@ -34,8 +34,13 @@ class _TaskGetViewState extends State<TaskGetView> {
     _taskGetCubit.taskGet(token: widget.token);
   }
 
-  void _onRefresh() =>
-      context.read<TaskGetCubit>().taskGet(token: widget.token);
+  Future<void> _onDeleted(TaskGetSuccess state, int index) async {
+    await context.read<TaskDeleteCubit>().taskDelete(
+          token: widget.token,
+          id: state.message![index].id!.toInt(),
+        );
+    await _taskGetCubit.taskGet(token: widget.token);
+  }
 
   void _clearText() {
     _titleController.clear();
@@ -83,7 +88,7 @@ class _TaskGetViewState extends State<TaskGetView> {
                   topLeft: Radius.circular(30.0),
                   topRight: Radius.circular(30.0),
                 ),
-                panel: _slidingPanel(),
+                panel: _slidingPanel,
               ),
             ),
           ],
@@ -150,17 +155,14 @@ class _TaskGetViewState extends State<TaskGetView> {
         title: const Text("My Notes"),
       );
 
-  Padding _slidingPanel() {
-    return Padding(
-      padding: context.lowHorPadding,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          TextFormField(
-            maxLines: null,
-            controller: _titleController,
-            decoration: const InputDecoration(
+  Padding get _slidingPanel => Padding(
+        padding: context.lowHorPadding,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            DefaultTextField(
+              controller: _titleController,
               hintText: "Title",
               hintStyle: TextStyle(color: Colors.white),
               border: OutlineInputBorder(borderSide: BorderSide.none),
@@ -174,13 +176,11 @@ class _TaskGetViewState extends State<TaskGetView> {
               hintStyle: TextStyle(color: Colors.white),
               border: OutlineInputBorder(borderSide: BorderSide.none),
             ),
-          ),
-          const CustomSpacer(),
-          addButton(context),
-        ],
-      ),
-    );
-  }
+            const CustomSpacer(),
+            addButton,
+          ],
+        ),
+      );
 
   Widget get addButton => DefaultButton(
         onPressed: () async {
