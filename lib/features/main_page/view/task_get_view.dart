@@ -17,10 +17,18 @@ class TaskGetView extends StatefulWidget {
 class _TaskGetViewState extends State<TaskGetView> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
+  late final TaskDeleteCubit _taskDeleteCubit;
+  late final TaskGetCubit _taskGetCubit;
+  late final TaskPostCubit _taskPostCubit;
   @override
   void initState() {
     super.initState();
-    _onRefresh();
+
+    _taskGetCubit = context.read<TaskGetCubit>();
+    _taskPostCubit = context.read<TaskPostCubit>();
+    _taskDeleteCubit = context.read<TaskDeleteCubit>();
+
+    _taskGetCubit.taskGet(token: widget.token);
   }
 
   void _onRefresh() =>
@@ -31,10 +39,7 @@ class _TaskGetViewState extends State<TaskGetView> {
     _contentController.clear();
   }
 
-  void _closeKeyboard() {
-    FocusScope.of(context).unfocus();
-    TextEditingController().clear();
-  }
+  void _closeKeyboard() => FocusScope.of(context).unfocus();
 
   final PanelController _pc = PanelController();
 
@@ -47,7 +52,7 @@ class _TaskGetViewState extends State<TaskGetView> {
         _pc.close();
       },
       child: Scaffold(
-        appBar: _appBar(),
+        appBar: _appBar,
         body: Column(
           children: [
             Expanded(
@@ -154,17 +159,15 @@ class _TaskGetViewState extends State<TaskGetView> {
     }
   }
 
-  AppBar _appBar() {
-    return AppBar(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(30),
+  AppBar get _appBar => AppBar(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30),
+          ),
         ),
-      ),
-      automaticallyImplyLeading: false,
-      title: const Text("My Notes"),
-    );
-  }
+        automaticallyImplyLeading: false,
+        title: const Text("My Notes"),
+      );
 
   Padding _slidingPanel() {
     return Padding(
@@ -198,17 +201,14 @@ class _TaskGetViewState extends State<TaskGetView> {
     );
   }
 
-  Widget addButton(BuildContext context) {
-    return GFButton(
-        borderShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        onPressed: () {
-          context.read<TaskPostCubit>().taskPost(
+  Widget get addButton => DefaultButton(
+        onPressed: () async {
+          await context.read<TaskPostCubit>().taskPost(
                 token: widget.token,
                 name: _titleController.text,
                 body: _contentController.text,
               );
-          _onRefresh();
+          _taskGetCubit.taskGet(token: widget.token);
           _clearText();
           _closeKeyboard();
           _pc.close();
