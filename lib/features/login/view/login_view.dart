@@ -23,73 +23,67 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(widget.noteRepository),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: const Text("Private Notes Login"),
-          actions: [
-            Padding(
-              padding: context.right,
-              child: const ModeSwitcher(),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: const Text("Private Notes Login"),
+        actions: [
+          Padding(
+            padding: context.right,
+            child: const ModeSwitcher(),
+          )
+        ],
+      ),
+      body: Padding(
+        padding: context.lowHorPadding,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CustomLogo(),
+            const CustomSpacer(),
+            CustomTextField(
+              xController: _usernameController,
+              hintText: 'Username',
+              icon: const Icon(Icons.person, color: Colors.white),
+            ),
+            const CustomSpacer(),
+            passwordField(context),
+            registerTextButton(context),
+            const CustomSpacer2(),
+            BlocConsumer<LoginCubit, LoginState>(
+              listener: (context, state) {
+                if (state is LoginSuccess) {
+                  toastMessage(
+                    mess: 'Hoş Geldiniz!',
+                    toastType: ToastType.success,
+                  );
+                } else if (state is LoginError) {
+                  toastMessage(
+                    mess: 'Hata: ${state.message},${state.statusCode}',
+                    toastType: ToastType.error,
+                  );
+                }
+              },
+              builder: (context, state) => loginButton,
+            ),
+            BlocConsumer<LoginCubit, LoginState>(
+              listener: (context, state) {
+                if (state is LoginSuccess) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TaskGetView(
+                        token: state.message!,
+                      ),
+                    ),
+                  );
+                }
+              },
+              builder: (context, state) {
+                return Container();
+              },
             )
           ],
-        ),
-        body: Padding(
-          padding: context.lowHorPadding,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CustomLogo(),
-              const CustomSpacer(),
-              CustomTextField(
-                xController: _usernameController,
-                hintText: 'Username',
-                icon: const Icon(Icons.person, color: Colors.white),
-              ),
-              const CustomSpacer(),
-              passwordField(context),
-              registerTextButton(context),
-              const CustomSpacer2(),
-              BlocConsumer<LoginCubit, LoginState>(
-                listener: (context, state) {
-                  if (state is LoginSuccess) {
-                    toastMessage(
-                      mess: 'Hoş Geldiniz!',
-                      toastType: ToastType.success,
-                    );
-                  } else if (state is LoginError) {
-                    toastMessage(
-                      mess: 'Hata: ${state.message},${state.statusCode}',
-                      toastType: ToastType.error,
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  return loginButton(context);
-                },
-              ),
-              BlocConsumer<LoginCubit, LoginState>(
-                listener: (context, state) {
-                  if (state is LoginSuccess) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TaskGetView(
-                          noteRepository: widget.noteRepository,
-                          token: state.message!,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  return Container();
-                },
-              )
-            ],
-          ),
         ),
       ),
     );
@@ -101,8 +95,7 @@ class _LoginViewState extends State<LoginView> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => RegisterView(
-                        noteRepository: widget.noteRepository,
+                  builder: (context) => const RegisterView(
                       )));
         },
         child: const Text(

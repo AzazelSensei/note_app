@@ -78,12 +78,8 @@ class _RegisterViewState extends State<RegisterView> {
             toastType: ToastType.success,
           );
         } else if (state is RegisterSuccess) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LoginView(
-                        noteRepository: widget.noteRepository,
-                      )));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const LoginView()));
           toastMessage(
             mess: 'Hata: ${state.message}, Hata Kodu:${state.statusCode}',
             toastType: ToastType.error,
