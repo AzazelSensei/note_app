@@ -65,8 +65,14 @@ class _TaskGetViewState extends State<TaskGetView> {
         body: Column(
           children: [
             Expanded(
-              child: BlocBuilder<TaskGetCubit, TaskGetState>(
-                builder: _builder,
+              child: RefreshIndicator(
+                color: Colors.black,
+                backgroundColor: Colors.white,
+                onRefresh: () async =>
+                    await _taskGetCubit.taskGet(token: widget.token),
+                child: BlocBuilder<TaskGetCubit, TaskGetState>(
+                  builder: _stateRouter,
+                ),
               ),
             ),
             Align(
@@ -98,7 +104,7 @@ class _TaskGetViewState extends State<TaskGetView> {
     );
   }
 
-  Widget _builder(context, state) {
+  Widget _stateRouter(context, state) {
     if (state is TaskGetLoading) {
       return const Center(
         child: CircularProgressIndicator(),
