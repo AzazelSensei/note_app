@@ -4,6 +4,7 @@ import 'package:note_app/common_libs.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/core/components/default_action_pane.dart';
 import 'package:note_app/core/components/default_button.dart';
+import '../../../core/components/default_textfield.dart';
 import '../cubit/task_delete_cubit/task_delete_cubit.dart';
 
 class TaskGetView extends StatefulWidget {
@@ -164,17 +165,12 @@ class _TaskGetViewState extends State<TaskGetView> {
             DefaultTextField(
               controller: _titleController,
               hintText: "Title",
-              hintStyle: TextStyle(color: Colors.white),
-              border: OutlineInputBorder(borderSide: BorderSide.none),
+              maxLines: null,
             ),
-          ),
-          TextFormField(
-            maxLines: null,
-            controller: _contentController,
-            decoration: const InputDecoration(
+            DefaultTextField(
+              controller: _contentController,
               hintText: "Content",
-              hintStyle: TextStyle(color: Colors.white),
-              border: OutlineInputBorder(borderSide: BorderSide.none),
+              maxLines: null,
             ),
             const CustomSpacer(),
             addButton,
@@ -195,12 +191,5 @@ class _TaskGetViewState extends State<TaskGetView> {
           _pc.close();
         },
         text: "Add Task",
-        textStyle: const TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
-            fontSize: 15,
-            fontWeight: FontWeight.bold),
-        size: context.height * 0.05,
-        fullWidthButton: true,
-        color: const Color(0xFF937DC2));
-  }
+      );
 }
