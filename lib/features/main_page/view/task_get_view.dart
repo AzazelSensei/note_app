@@ -8,6 +8,7 @@ import 'package:note_app/core/components/default_action_pane.dart';
 import 'package:note_app/core/components/default_button.dart';
 import '../../../core/components/default_textfield.dart';
 import '../cubit/task_delete_cubit/task_delete_cubit.dart';
+import '../cubit/task_update_cubit/task_update_cubit.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -168,34 +169,41 @@ class _TaskGetViewState extends State<TaskGetView> {
       return Center(
         child: spinkit,
       );
+      // } else if (state is TaskGetLoaded) {
+      //   return
     } else if (state is TaskGetSuccess) {
       return ListView.builder(
+        shrinkWrap: false,
+        physics: const BouncingScrollPhysics(),
         itemCount: state.message?.length,
         itemBuilder: (context, index) {
-          return Slidable(
-            key: ObjectKey(index),
-            closeOnScroll: false,
-            startActionPane: DefaultActionPane(
-              dismissible: DismissiblePane(
-                onDismissed: () async => await _onDeleted(state, index),
+          return Padding(
+            padding: EdgeInsets.only(top: index == 0 ? 10 : 0),
+            child: Slidable(
+              key: ObjectKey(index),
+              closeOnScroll: false,
+              startActionPane: DefaultActionPane(
+                dismissible: DismissiblePane(
+                  onDismissed: () async => await _onDeleted(state, index),
+                ),
+                onPressed: (context) async => await _onDeleted(state, index),
+                backgroundColor: const Color(0xFFFE4A49),
+                foregroundColor: Colors.white,
+                icon: Icons.delete,
+                label: 'Delete',
               ),
-              onPressed: (context) async => await _onDeleted(state, index),
-              backgroundColor: const Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-              label: 'Delete',
-            ),
-            endActionPane: DefaultActionPane(
-              onPressed: (context) {},
-              backgroundColor: const Color(0xFF0392CF),
-              foregroundColor: Colors.white,
-              icon: Icons.edit,
-              label: 'Edit',
-            ),
-            child: ListTile(
-              title: Text(state.message?[index].name ?? ""),
-              subtitle: Text(state.message?[index].body ?? ""),
-              leading: const Icon(Icons.panorama_fish_eye_sharp),
+              endActionPane: DefaultActionPane(
+                onPressed: (context) async => _beUpdate(state, index),
+                backgroundColor: const Color(0xFF0392CF),
+                foregroundColor: Colors.white,
+                icon: Icons.edit,
+                label: 'Edit',
+              ),
+              child: ListTile(
+                title: Text(state.message?[index].name ?? ""),
+                subtitle: Text(state.message?[index].body ?? ""),
+                leading: const Icon(Icons.panorama_fish_eye_sharp),
+              ),
             ),
           );
         },
