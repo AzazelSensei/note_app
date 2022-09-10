@@ -1,9 +1,5 @@
-// ignore_for_file: depend_on_referenced_packages, avoid_print, unused_local_variable, duplicate_ignore
+// ignore_for_file: unused_local_variable, duplicate_ignore
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../network/repository.dart';
-import 'package:dio/dio.dart';
 import 'package:note_app/common_libs.dart';
 
 import '../../../../core/utils/secure_storage.dart';
