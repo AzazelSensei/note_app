@@ -226,25 +226,28 @@ class _TaskGetViewState extends State<TaskGetView> {
         title: const Text("My Notes"),
       );
 
-  Padding get _slidingPanel => Padding(
-        padding: context.lowHorPadding,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            DefaultTextField(
-              controller: _titleController,
-              hintText: "Title",
-              maxLines: null,
-            ),
-            DefaultTextField(
-              controller: _contentController,
-              hintText: "Content",
-              maxLines: null,
-            ),
-            const CustomSpacer(),
-            addButton,
-          ],
+  Widget get _slidingPanel => SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: context.lowHorPadding,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              DefaultTextField(
+                controller: _titleController,
+                hintText: "Title",
+                maxLines: null,
+              ),
+              DefaultTextField(
+                controller: _contentController,
+                hintText: "Content",
+                maxLines: null,
+              ),
+              const CustomSpacer(),
+              addButton,
+            ],
+          ),
         ),
       );
 
