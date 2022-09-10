@@ -7,6 +7,8 @@ class TeskGetInitial extends TaskGetState {}
 
 class TaskGetLoading extends TaskGetState {}
 
+class TaskGetLoaded extends TaskGetState {}
+
 class TaskGetSuccess extends TaskGetState {
   final List<Message>? message;
   final String? statusCode;

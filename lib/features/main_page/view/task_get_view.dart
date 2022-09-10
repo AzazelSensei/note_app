@@ -1,16 +1,21 @@
 // ignore_for_file: unused_field, depend_on_referenced_packages
 
+import 'dart:async';
+
 import 'package:note_app/common_libs.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/core/components/default_action_pane.dart';
 import 'package:note_app/core/components/default_button.dart';
 import '../../../core/components/default_textfield.dart';
 import '../cubit/task_delete_cubit/task_delete_cubit.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class TaskGetView extends StatefulWidget {
-  const TaskGetView(
-      {Key? key, required this.token, })
-      : super(key: key);
+  const TaskGetView({
+    Key? key,
+    required this.token,
+  }) : super(key: key);
 
   final String token;
 
@@ -21,9 +26,14 @@ class TaskGetView extends StatefulWidget {
 class _TaskGetViewState extends State<TaskGetView> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
+
   late final TaskDeleteCubit _taskDeleteCubit;
   late final TaskGetCubit _taskGetCubit;
   late final TaskPostCubit _taskPostCubit;
+
+  Message? _selectNote;
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
@@ -40,12 +50,63 @@ class _TaskGetViewState extends State<TaskGetView> {
           token: widget.token,
           id: state.message![index].id!.toInt(),
         );
+    await EasyLoading.showSuccess('Delete Success!');
+    await _taskGetCubit.taskGet();
+  }
+
+  void _beUpdate(TaskGetSuccess state, int index) {
+    setState(() {
+      _selectNote = state.message![index];
+    });
+    _pc.open();
+    _titleController.text = _selectNote!.name!;
+    _contentController.text = _selectNote!.body!;
+  }
+
+  Future<void> _onUpdate() async {
+    await context.read<TaskUpdateCubit>().taskUpdate(
+          token: widget.token,
+          body: _contentController.text,
+          id: _selectNote!.id!.toInt(),
+          name: _titleController.text,
+        );
+    setState(() {
+      _selectNote = null;
+    });
+    _taskGetCubit.taskGet();
+    _clearText();
+    _closeKeyboard();
+    _pc.close();
+    await EasyLoading.showSuccess('Update Success!');
+  }
+
+  void _forPost() async {
+    await context.read<TaskPostCubit>().taskPost(
+          token: widget.token,
+          name: _titleController.text,
+          body: _contentController.text,
+        );
+    _taskGetCubit.taskGet();
+    _clearText();
+    _closeKeyboard();
+    _pc.close();
+    await EasyLoading.showSuccess('Add Success!');
   }
 
   void _clearText() {
     _titleController.clear();
     _contentController.clear();
   }
+
+  Widget spinkit = SpinKitFadingCircle(
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? Colors.white : Colors.black12,
+        ),
+      );
+    },
+  );
 
   void _closeKeyboard() => FocusScope.of(context).unfocus();
 
@@ -82,9 +143,9 @@ class _TaskGetViewState extends State<TaskGetView> {
                 color: const Color.fromARGB(255, 32, 31, 31),
                 collapsed: GestureDetector(
                   onTap: () => _pc.open(),
-                  child: const Center(
+                  child: Center(
                     child: Icon(
-                      Icons.add,
+                      _selectNote != null ? Icons.edit : Icons.add,
                       size: 40,
                     ),
                   ),
@@ -104,8 +165,8 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   Widget _stateRouter(context, state) {
     if (state is TaskGetLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return Center(
+        child: spinkit,
       );
     } else if (state is TaskGetSuccess) {
       return ListView.builder(

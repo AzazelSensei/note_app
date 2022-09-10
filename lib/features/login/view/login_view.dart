@@ -1,11 +1,14 @@
 // ignore_for_file: must_call_super
 
+import 'dart:async';
+
 import 'package:note_app/common_libs.dart';
 import 'package:note_app/core/components/default_button.dart';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
-
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -15,10 +18,20 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isVisible = false;
+  Timer? _timer;
 
   @override
   void initState() {
+    super.initState();
+
     isVisible = false;
+    EasyLoading.addStatusCallback((status) {
+      if (status == EasyLoadingStatus.dismiss) {
+        _timer?.cancel();
+      }
+    });
+    EasyLoading.showSuccess('Use in initState');
+    // EasyLoading.removeCallbacks();
   }
 
   @override
@@ -53,15 +66,19 @@ class _LoginViewState extends State<LoginView> {
             BlocConsumer<LoginCubit, LoginState>(
               listener: (context, state) {
                 if (state is LoginSuccess) {
-                  toastMessage(
-                    mess: 'Hoş Geldiniz!',
-                    toastType: ToastType.success,
-                  );
+                  EasyLoading.showSuccess('Login Success!');
+                  // toastMessage(
+                  //   mess: 'Hoş Geldiniz!',
+                  //   toastType: ToastType.success,
+                  // );
                 } else if (state is LoginError) {
-                  toastMessage(
-                    mess: 'Hata: ${state.message},${state.statusCode}',
-                    toastType: ToastType.error,
-                  );
+                  EasyLoading.showError(
+                      'Failed: ${state.message}\r\nStatus Code: ${state.statusCode}');
+
+                  // toastMessage(
+                  //   mess: 'Hata: ${state.message},${state.statusCode}',
+                  //   toastType: ToastType.error,
+                  // );
                 }
               },
               builder: (context, state) => loginButton,
@@ -92,11 +109,9 @@ class _LoginViewState extends State<LoginView> {
   TextButton registerTextButton(BuildContext context) {
     return TextButton(
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const RegisterView(
-                      )));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const RegisterView()));
+          _timer?.cancel();
         },
         child: const Text(
           "I Don't Have a Account",

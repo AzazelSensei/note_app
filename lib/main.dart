@@ -3,6 +3,8 @@ import 'package:note_app/common_libs.dart';
 import 'features/main_page/cubit/task_delete_cubit/task_delete_cubit.dart';
 import 'features/main_page/cubit/task_update_cubit/task_update_cubit.dart';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 void main() {
   final noteRepository =
       NoteRepository(Dio(BaseOptions(baseUrl: EndPoint.baseUrl)));
@@ -12,6 +14,22 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.noteRepository}) : super(key: key);
   final NoteRepository noteRepository;
+
+  void configLoading() {
+    EasyLoading.instance
+      ..displayDuration = const Duration(milliseconds: 2000)
+      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+      ..loadingStyle = EasyLoadingStyle.dark
+      ..indicatorSize = 45.0
+      ..radius = 10.0
+      ..progressColor = Colors.yellow
+      ..backgroundColor = Colors.green
+      ..indicatorColor = Colors.yellow
+      ..textColor = Colors.yellow
+      ..maskColor = Colors.blue.withOpacity(0.5)
+      ..userInteractions = true
+      ..dismissOnTap = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +56,7 @@ class MyApp extends StatelessWidget {
       ],
       child: DynamicTheme(
         builder: (context, themeData) => MaterialApp(
+          builder: EasyLoading.init(),
           title: 'Private Notes',
           debugShowCheckedModeBanner: false,
           theme: themeData,
