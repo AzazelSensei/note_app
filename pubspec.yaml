@@ -27,6 +27,7 @@ dev_dependencies:
   fluttertoast: ^8.0.9
   sliding_up_panel: ^2.0.0+1
   flutter_slidable: ^2.0.0
+  flutter_secure_storage: ^6.0.0
 
 flutter:
   uses-material-design: true
