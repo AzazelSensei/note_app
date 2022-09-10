@@ -17,7 +17,7 @@ class TaskDeleteCubit extends Cubit<TaskDeleteState> {
       if (token.isEmpty) {
         throw 'Kritik Hata';
       }
-      final response = await noteRepository.taskDelete(token: token, id: id);
+      final response = await noteRepository.taskDelete(id: id);
       emit(TaskDeleteSuccess(response.message, response.statusCode));
     } on DioError catch (e) {
       emit(TaskDeleteError(

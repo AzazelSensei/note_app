@@ -32,7 +32,7 @@ class _TaskGetViewState extends State<TaskGetView> {
     _taskPostCubit = context.read<TaskPostCubit>();
     _taskDeleteCubit = context.read<TaskDeleteCubit>();
 
-    _taskGetCubit.taskGet(token: widget.token);
+    _taskGetCubit.taskGet();
   }
 
   Future<void> _onDeleted(TaskGetSuccess state, int index) async {
@@ -40,7 +40,6 @@ class _TaskGetViewState extends State<TaskGetView> {
           token: widget.token,
           id: state.message![index].id!.toInt(),
         );
-    await _taskGetCubit.taskGet(token: widget.token);
   }
 
   void _clearText() {
@@ -68,8 +67,7 @@ class _TaskGetViewState extends State<TaskGetView> {
               child: RefreshIndicator(
                 color: Colors.black,
                 backgroundColor: Colors.white,
-                onRefresh: () async =>
-                    await _taskGetCubit.taskGet(token: widget.token),
+                onRefresh: () async => await _taskGetCubit.taskGet(),
                 child: BlocBuilder<TaskGetCubit, TaskGetState>(
                   builder: _stateRouter,
                 ),
@@ -187,7 +185,6 @@ class _TaskGetViewState extends State<TaskGetView> {
   Widget get addButton => DefaultButton(
         onPressed: () async {
           await context.read<TaskPostCubit>().taskPost(
-                token: widget.token,
                 name: _titleController.text,
                 body: _contentController.text,
               );

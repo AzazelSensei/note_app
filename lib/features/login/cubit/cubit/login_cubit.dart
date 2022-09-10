@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../network/repository.dart';
 import 'package:dio/dio.dart';
+import 'package:note_app/common_libs.dart';
+
+import '../../../../core/utils/secure_storage.dart';
 
 part 'login_state.dart';
 
@@ -11,6 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.noteRepository) : super(LoginInitial());
 
   final NoteRepository noteRepository;
+  final TokenSecureStorage storage = TokenSecureStorage();
 
   Future<void> login(
       {required String username, required String password}) async {
@@ -26,6 +30,10 @@ class LoginCubit extends Cubit<LoginState> {
 
       //Token adında değişken oluşturuldu
       final token = response.message;
+      if (token != null) {
+        await storage.saveToken(token);
+      }
+
       emit(LoginSuccess(
           message: response.message, statusCode: response.statusCode));
     } on DioError catch (e) {

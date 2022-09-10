@@ -7,14 +7,11 @@ class TaskGetCubit extends Cubit<TaskGetState> {
 
   TaskGetCubit(this.noteRepository) : super(TeskGetInitial());
 
-  Future<void> taskGet({required String token}) async {
+  Future<void> taskGet() async {
     emit(TaskGetLoading());
-
+    emit(TaskGetLoaded());
     try {
-      if (token.isEmpty) {
-        throw 'Kritik Hata';
-      }
-      final response = await noteRepository.taskget(token: token);
+      final response = await noteRepository.taskget();
       emit(TaskGetSuccess(response.message, response.statusCode));
     } on DioError catch (e) {
       emit(TaskGetError(

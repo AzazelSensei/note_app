@@ -2,10 +2,24 @@ import 'package:note_app/common_libs.dart';
 import 'package:note_app/features/login/model/login_model.dart';
 import 'package:note_app/features/register/model/register_model.dart';
 
+import '../core/utils/secure_storage.dart';
+
 class NoteRepository {
   final Dio _dio;
+  final storage = TokenSecureStorage();
 
   NoteRepository(this._dio);
+
+  Future<Map<String, dynamic>?> get headers async {
+    final token = await storage.getToken;
+    if (token != null) {
+      return {
+        'TaskManagerKey': token,
+      };
+    } else {
+      return null;
+    }
+  }
 
   Future<LoginModelPost> login(String username, String password) async {
     final response = await _dio.post(EndPoint.login, data: {
@@ -20,7 +34,6 @@ class NoteRepository {
     }
   }
 
-  //durdur
   Future<RegisterModelPost> register(String username, String password) async {
     final response = await _dio.post(EndPoint.register, data: {
       'username': username,
@@ -36,9 +49,7 @@ class NoteRepository {
         'name': name,
       },
       options: Options(
-        headers: {
-          'TaskManagerKey': token,
-        },
+        headers: await headers,
       ),
     );
 
@@ -49,13 +60,11 @@ class NoteRepository {
     }
   }
 
-  Future<SearchResult> taskget({required String token}) async {
+  Future<SearchResult> taskget() async {
     final response = await _dio.get(
       EndPoint.getTasks,
       options: Options(
-        headers: {
-          'TaskManagerKey': token,
-        },
+        headers: await headers,
       ),
     );
 
@@ -77,9 +86,7 @@ class NoteRepository {
         'body': body,
       },
       options: Options(
-        headers: {
-          'TaskManagerKey': token,
-        },
+        headers: await headers,
       ),
     );
 
@@ -90,17 +97,14 @@ class NoteRepository {
     }
   }
 
-  Future<SearchResult> taskDelete(
-      {required String token, required int id}) async {
+  Future<SearchResult> taskDelete({required int id}) async {
     final response = await _dio.delete(
       EndPoint.getTasks,
       data: {
         'id': id,
       },
       options: Options(
-        headers: {
-          'TaskManagerKey': token,
-        },
+        headers: await headers,
       ),
     );
 
@@ -112,10 +116,7 @@ class NoteRepository {
   }
 
   Future<SearchResult> taskUpdate(
-      {required String token,
-      required int id,
-      required String name,
-      required String body}) async {
+      {required int id, required String name, required String body}) async {
     final response = await _dio.patch(
       EndPoint.getTasks,
       data: {
@@ -124,9 +125,7 @@ class NoteRepository {
         'body': body,
       },
       options: Options(
-        headers: {
-          'TaskManagerKey': token,
-        },
+        headers: await headers,
       ),
     );
 

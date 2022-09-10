@@ -77,9 +77,7 @@ void main() {
         debugPrint(_token.toString());
         expect(_token, isNotNull);
         if (_token != null) {
-          final response = await _noteRepository.taskget(
-            token: _token!,
-          );
+          final response = await _noteRepository.taskget();
 
           debugPrint(response.message.toString());
           debugPrint(response.statusCode.toString());
