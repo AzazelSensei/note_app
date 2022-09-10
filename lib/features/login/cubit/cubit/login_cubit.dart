@@ -24,14 +24,15 @@ class LoginCubit extends Cubit<LoginState> {
       }
       final response = await noteRepository.login(username, password);
 
-      //Token adında değişken oluşturuldu
       final token = response.message;
       if (token != null) {
         await storage.saveToken(token);
       }
 
       emit(LoginSuccess(
-          message: response.message, statusCode: response.statusCode));
+        message: response.message,
+        statusCode: response.statusCode,
+      ));
     } on DioError catch (e) {
       emit(
         LoginError(
@@ -42,9 +43,10 @@ class LoginCubit extends Cubit<LoginState> {
               e.response != null ? e.response!.statusCode!.toString() : '',
         ),
       );
-      print(e.toString());
     } catch (e) {
-      print(e.toString());
+      emit(LoginError(
+        statusCode: e.toString(),
+      ));
     }
   }
 }
