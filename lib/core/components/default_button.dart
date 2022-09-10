@@ -4,8 +4,10 @@ class DefaultButton extends StatelessWidget {
   final String? text;
   final void Function()? onPressed;
   final Color? color;
+  final bool? fullWidthButton;
 
-  const DefaultButton({super.key, this.onPressed, this.text, this.color});
+  const DefaultButton(
+      {super.key, this.onPressed, this.text, this.color, this.fullWidthButton});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class DefaultButton extends StatelessWidget {
           fontSize: 15,
           fontWeight: FontWeight.bold),
       size: context.height * 0.05,
-      fullWidthButton: true,
+      fullWidthButton: fullWidthButton ?? true,
       color: color ?? const Color(0xFF937DC2),
     );
   }
