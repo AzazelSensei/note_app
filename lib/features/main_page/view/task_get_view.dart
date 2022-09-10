@@ -201,8 +201,13 @@ class _TaskGetViewState extends State<TaskGetView> {
         },
       );
     } else if (state is TaskGetError) {
-      return Center(
-        child: Text(state.statusCode.toString()),
+      return RefreshIndicator(
+        color: Colors.black,
+        backgroundColor: Colors.white,
+        onRefresh: () async => await _taskGetCubit.taskGet(),
+        child: Center(
+          child: Text(state.statusCode.toString()),
+        ),
       );
     } else {
       return const Center(
