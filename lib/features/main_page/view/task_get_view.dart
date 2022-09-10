@@ -251,17 +251,30 @@ class _TaskGetViewState extends State<TaskGetView> {
         ),
       );
 
-  Widget get addButton => DefaultButton(
-        onPressed: () async {
-          await context.read<TaskPostCubit>().taskPost(
-                name: _titleController.text,
-                body: _contentController.text,
-              );
-          _taskGetCubit.taskGet(token: widget.token);
-          _clearText();
-          _closeKeyboard();
-          _pc.close();
-        },
-        text: "Add Task",
+  Widget get addButton => Row(
+        children: [
+          Expanded(
+            child: DefaultButton(
+              onPressed: _selectNote != null ? _onUpdate : _forPost,
+              text: _selectNote != null ? "Update Task" : "Add Task",
+            ),
+          ),
+          if (_selectNote != null) ...[
+            const SizedBox(width: 10),
+            DefaultButton(
+              color: Colors.red,
+              fullWidthButton: false,
+              onPressed: () {
+                setState(() {
+                  _selectNote = null;
+                });
+                _clearText();
+                _closeKeyboard();
+                _pc.close();
+              },
+              text: "Cancel",
+            )
+          ],
+        ],
       );
 }
