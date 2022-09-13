@@ -1,5 +1,6 @@
 import 'package:note_app/common_libs.dart';
 
+
 class RegisterView extends StatefulWidget {
   const RegisterView({
     Key? key,
@@ -44,7 +45,36 @@ class _RegisterViewState extends State<RegisterView> {
                 hintText: "Username",
                 icon: const Icon(Icons.lock, color: Colors.white)),
             const CustomSpacer2(),
-            toastMessageNRoute(),
+            BlocConsumer<RegisterCubit, RegisterState>(
+              listener: (context, state) async {
+                if (state is RegisterSuccess) {
+                  EasyLoading.showSuccess('Registeration Success!');
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginView(),
+                    ),
+                  );
+                } else if (state is RegisterError) {
+                  // EasyLoading.showSuccess('Registeration Success!');
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const LoginView(),
+                  //   ),
+                  // );
+                  EasyLoading.showError(
+                      'Failed: ${state.message}\r\nStatus Code: ${state.statusCode}');
+                }
+              },
+              builder: (context, state) {
+                if (state is RegisterLoading) {
+                  return spinkit;
+                } else {
+                  return registerButton(context);
+                }
+              },
+            ),
           ],
         ),
       ),
