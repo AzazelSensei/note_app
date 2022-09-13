@@ -9,8 +9,6 @@ import 'package:note_app/core/components/default_button.dart';
 import '../../../core/components/default_textfield.dart';
 import '../cubit/task_delete_cubit/task_delete_cubit.dart';
 import '../cubit/task_update_cubit/task_update_cubit.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class TaskGetView extends StatefulWidget {
   const TaskGetView({

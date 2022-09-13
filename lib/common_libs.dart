@@ -20,7 +20,9 @@ export 'package:note_app/network/endpoint.dart';
 export 'package:sliding_up_panel/sliding_up_panel.dart';
 export 'package:note_app/core/extension/ui_extension.dart';
 export 'package:flutter_secure_storage/flutter_secure_storage.dart';
+export 'package:flutter_spinkit/flutter_spinkit.dart';
 
+export 'package:flutter_easyloading/flutter_easyloading.dart';
 
 //features
 export 'features/register/cubit/cubit/register_cubit.dart';

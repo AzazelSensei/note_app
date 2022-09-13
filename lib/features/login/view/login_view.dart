@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:note_app/common_libs.dart';
 import 'package:note_app/core/components/default_button.dart';
 
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
