@@ -29,8 +29,7 @@ class _LoginViewState extends State<LoginView> {
         _timer?.cancel();
       }
     });
-    EasyLoading.showSuccess('Use in initState');
-    // EasyLoading.removeCallbacks();
+    EasyLoading.showSuccess('Giriş Başarılı');
   }
 
   @override
@@ -66,25 +65,6 @@ class _LoginViewState extends State<LoginView> {
               listener: (context, state) {
                 if (state is LoginSuccess) {
                   EasyLoading.showSuccess('Login Success!');
-                  // toastMessage(
-                  //   mess: 'Hoş Geldiniz!',
-                  //   toastType: ToastType.success,
-                  // );
-                } else if (state is LoginError) {
-                  EasyLoading.showError(
-                      'Failed: ${state.message}\r\nStatus Code: ${state.statusCode}');
-
-                  // toastMessage(
-                  //   mess: 'Hata: ${state.message},${state.statusCode}',
-                  //   toastType: ToastType.error,
-                  // );
-                }
-              },
-              builder: (context, state) => loginButton,
-            ),
-            BlocConsumer<LoginCubit, LoginState>(
-              listener: (context, state) {
-                if (state is LoginSuccess) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -93,12 +73,27 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                   );
+                } else if (state is LoginError) {
+                  EasyLoading.showError(
+                      'Failed: ${state.message}\r\nStatus Code: ${state.statusCode}');
                 }
               },
               builder: (context, state) {
-                return Container();
+                if (state is LoginLoading) {
+                  return SpinKitFadingCircle(
+                    itemBuilder: (BuildContext context, int index) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: index.isEven ? Colors.white : Colors.black12,
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return loginButton;
+                }
               },
-            )
+            ),
           ],
         ),
       ),

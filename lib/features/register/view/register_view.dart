@@ -51,28 +51,15 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  BlocConsumer<RegisterCubit, RegisterState> toastMessageNRoute() {
-    return BlocConsumer<RegisterCubit, RegisterState>(
-      listener: (context, state) {
-        if (state is RegisterSuccess) {
-          toastMessage(
-            mess: 'Kaydınız Başarı İle Oluşturuldu!',
-            toastType: ToastType.success,
-          );
-        } else if (state is RegisterSuccess) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const LoginView()));
-          toastMessage(
-            mess: 'Hata: ${state.message}, Hata Kodu:${state.statusCode}',
-            toastType: ToastType.error,
-          );
-        }
-      },
-      builder: (context, state) {
-        return registerButton(context);
-      },
-    );
-  }
+  Widget spinkit = SpinKitFadingCircle(
+    itemBuilder: (BuildContext context, int index) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          color: index.isEven ? Colors.white : Colors.black12,
+        ),
+      );
+    },
+  );
 
   Widget registerButton(BuildContext context) {
     return GFButton(
