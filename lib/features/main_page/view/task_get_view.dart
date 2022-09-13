@@ -167,8 +167,6 @@ class _TaskGetViewState extends State<TaskGetView> {
       return Center(
         child: spinkit,
       );
-      // } else if (state is TaskGetLoaded) {
-      //   return
     } else if (state is TaskGetSuccess) {
       return ListView.builder(
         shrinkWrap: false,
