@@ -5,14 +5,13 @@ import 'colors_manager.dart';
 
 class ThemeManager {
   static ThemeData get theme => ThemeData(
-        primaryColor: const Color(0xFF937DC2),
-        primaryColorLight: const Color(0xFFffffff),
+        primaryColor: ColorManager.mainTheme,
         brightness: Brightness.light,
         fontFamily: 'Rubik',
-        scaffoldBackgroundColor: Colors.grey[50],
+        scaffoldBackgroundColor: ColorManager.lightGrey,
         platform: TargetPlatform.android,
         appBarTheme: const AppBarTheme(
-          color: Color(0xFF937DC2),
+          color: ColorManager.mainTheme,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
             statusBarIconBrightness: Brightness.dark,
@@ -24,60 +23,89 @@ class ThemeManager {
               color: Colors.black, fontSize: 22, fontWeight: FontWeight.w500),
           iconTheme: IconThemeData(
             size: 30,
-            color: Colors.white,
+            color: Colors.black,
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: ColorManager.black,
           ),
         ),
         iconTheme: const IconThemeData(
           size: 30,
           color: ColorManager.lightGrey,
         ),
-        textTheme: const TextTheme(
-          headline1: TextStyle(
-            fontSize: 22,
-            height: 1,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
+        textTheme: _textTheme(),
+        buttonTheme: const ButtonThemeData(
+          buttonColor: ColorManager.mainTheme,
+          textTheme: ButtonTextTheme.primary,
+        ),
+        inputDecorationTheme: const InputDecorationTheme(
+          iconColor: ColorManager.black,
+          fillColor: ColorManager.mainTheme,
+          hintStyle: TextStyle(color: Colors.black87),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(15.0)),
           ),
-          headline2: TextStyle(
-            fontSize: 17,
-            height: 1.4,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-          subtitle1: TextStyle(
-            fontSize: 16,
-            height: 1.3,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-          subtitle2: TextStyle(
-            fontSize: 14,
-            height: 1.45,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-          bodyText1: TextStyle(
-            fontSize: 15,
-            height: 1.4,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
-          ),
-          bodyText2: TextStyle(
-            fontSize: 14,
-            height: 1.4,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
-          ),
-          overline: TextStyle(
-            fontSize: 11,
-            height: 1.4,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
         ),
-        buttonTheme: const ButtonThemeData(
-          buttonColor: Color(0xFF937DC2),
-          textTheme: ButtonTextTheme.primary,
+        sliderTheme: const SliderThemeData(
+          activeTrackColor: ColorManager.mainTheme,
+          inactiveTrackColor: ColorManager.black,
+          trackHeight: 4.0,
+          thumbColor: ColorManager.mainTheme,
+          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+          overlayColor: ColorManager.mainTheme,
+          overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+        ),
+      );
+
+  static TextTheme _textTheme() => const TextTheme(
+        headline1: TextStyle(
+          fontSize: 22,
+          height: 1,
+          fontWeight: FontWeight.w600,
+          color: Colors.black,
+        ),
+        headline2: TextStyle(
+          fontSize: 17,
+          height: 1.4,
+          fontWeight: FontWeight.w600,
+          color: Colors.black,
+        ),
+        subtitle1: TextStyle(
+          fontSize: 16,
+          height: 1.3,
+          fontWeight: FontWeight.w600,
+          color: Colors.black,
+        ),
+        subtitle2: TextStyle(
+          fontSize: 14,
+          height: 1.45,
+          fontWeight: FontWeight.w600,
+          color: Colors.black,
+        ),
+        bodyText1: TextStyle(
+          fontSize: 15,
+          height: 1.4,
+          fontWeight: FontWeight.w400,
+          color: Colors.black,
+        ),
+        bodyText2: TextStyle(
+          fontSize: 14,
+          height: 1.4,
+          fontWeight: FontWeight.w400,
+          color: Colors.black,
+        ),
+        overline: TextStyle(
+          fontSize: 11,
+          height: 1.4,
+          fontWeight: FontWeight.w400,
+          color: Colors.black,
         ),
       );
 
@@ -91,7 +119,7 @@ class ThemeManager {
                 statusBarColor: Colors.transparent,
                 statusBarBrightness: Brightness.light,
                 statusBarIconBrightness: Brightness.light),
-            backgroundColor: Color.fromARGB(255, 32, 31, 31),
+            backgroundColor: ColorManager.darktheme,
             elevation: 0.0,
             centerTitle: true,
             titleTextStyle: TextStyle(
@@ -108,6 +136,24 @@ class ThemeManager {
           color: ColorManager.lightGrey,
         ),
         textTheme: TextManager.textStyle,
+        inputDecorationTheme: const InputDecorationTheme(
+          iconColor: ColorManager.white,
+          fillColor: ColorManager.mainTheme,
+          hintStyle: TextStyle(color: Colors.grey),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: ColorManager.white,
+          ),
+        ),
       );
 
   static ThemeData get dividerColor => ThemeData(
