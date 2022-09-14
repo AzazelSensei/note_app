@@ -18,6 +18,7 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _passwordController = TextEditingController();
   bool isVisible = false;
   Timer? _timer;
+  late Color color;
 
   @override
   void initState() {
@@ -29,8 +30,9 @@ class _LoginViewState extends State<LoginView> {
         _timer?.cancel();
       }
     });
-    EasyLoading.showSuccess('Giriş Başarılı');
   }
+
+  void _closeKeyboard() => FocusScope.of(context).unfocus();
 
   @override
   Widget build(BuildContext context) {

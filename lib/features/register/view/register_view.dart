@@ -1,6 +1,5 @@
 import 'package:note_app/common_libs.dart';
 
-
 class RegisterView extends StatefulWidget {
   const RegisterView({
     Key? key,
@@ -13,6 +12,9 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  void _closeKeyboard() => FocusScope.of(context).unfocus();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
