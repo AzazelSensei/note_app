@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, avoid_print, unused_local_variable
+// ignore_for_file: depend_on_referenced_packages, avoid_print, unused_local_variable, unrelated_type_equality_checks
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -23,7 +23,14 @@ class RegisterCubit extends Cubit<RegisterState> {
         final response = await noteRepository.register(username, password);
       }
       final response = await noteRepository.register(username, password);
-      emit(RegisterSuccess(response.message, response.statusCode));
+      if (response.statusCode == 200) {
+        emit(RegisterSuccess(response.message, response.statusCode));
+      } else if (response.statusCode == 400) {
+        emit(RegisterError(
+            response.message = "User already exist", response.statusCode));
+      } else {
+        emit(RegisterError(response.message, response.statusCode));
+      }
     } on DioError catch (e) {
       emit(
         RegisterError(
@@ -33,9 +40,6 @@ class RegisterCubit extends Cubit<RegisterState> {
           e.response != null ? e.response!.statusCode!.toString() : '',
         ),
       );
-      print(e.toString());
-    } catch (e) {
-      print(e.toString());
     }
   }
 }
