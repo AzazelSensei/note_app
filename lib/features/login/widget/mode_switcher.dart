@@ -3,6 +3,7 @@
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:note_app/core/init/theme/colors_manager.dart';
 
 class ModeSwitcher extends StatefulWidget {
   const ModeSwitcher({Key? key}) : super(key: key);
@@ -37,9 +38,9 @@ class _ModeSwitcherState extends State<ModeSwitcher> {
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: DayNightSwitcherIcon(
-        dayBackgroundColor: const Color(0xFF937DC2),
+        dayBackgroundColor: ColorManager.mainTheme,
         isDarkModeEnabled: isDark,
-        onStateChanged: (isDarkModeEnabled) {
+        onStateChanged: (isDarkModeEnabled) async {
           isDark = isDarkModeEnabled;
 
           if (isDarkModeEnabled) {

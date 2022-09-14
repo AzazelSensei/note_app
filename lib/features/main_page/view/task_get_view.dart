@@ -6,15 +6,13 @@ import 'package:note_app/common_libs.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/core/components/default_action_pane.dart';
 import 'package:note_app/core/components/default_button.dart';
+import 'package:note_app/core/init/theme/colors_manager.dart';
 import '../../../core/components/default_textfield.dart';
 import '../cubit/task_delete_cubit/task_delete_cubit.dart';
 import '../cubit/task_update_cubit/task_update_cubit.dart';
 
 class TaskGetView extends StatefulWidget {
-  const TaskGetView({
-    Key? key,
-    required this.token,
-  }) : super(key: key);
+  const TaskGetView({Key? key, required this.token}) : super(key: key);
 
   final String token;
 
@@ -32,6 +30,7 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   Message? _selectNote;
   Timer? _timer;
+  bool isDark = false;
 
   @override
   void initState() {
@@ -42,6 +41,10 @@ class _TaskGetViewState extends State<TaskGetView> {
     _taskDeleteCubit = context.read<TaskDeleteCubit>();
 
     _taskGetCubit.taskGet();
+    Future.delayed(Duration.zero, () {
+      checkTheme();
+      setState(() {});
+    });
   }
 
   Future<void> _onDeleted(TaskGetSuccess state, int index) async {
@@ -97,6 +100,15 @@ class _TaskGetViewState extends State<TaskGetView> {
     _contentController.clear();
   }
 
+  void checkTheme() {
+    int themeId = DynamicTheme.of(context)!.themeId;
+    if (themeId == 1) {
+      isDark = false;
+    } else {
+      isDark = true;
+    }
+  }
+
   Widget spinkit = SpinKitFadingCircle(
     itemBuilder: (BuildContext context, int index) {
       return DecoratedBox(
@@ -139,7 +151,9 @@ class _TaskGetViewState extends State<TaskGetView> {
                 controller: _pc,
                 maxHeight: MediaQuery.of(context).size.height * 0.5,
                 minHeight: MediaQuery.of(context).size.height * 0.07,
-                color: const Color.fromARGB(255, 32, 31, 31),
+                color: isDark == true
+                    ? ColorManager.darktheme
+                    : ColorManager.mainTheme,
                 collapsed: GestureDetector(
                   onTap: () => _pc.open(),
                   child: Center(

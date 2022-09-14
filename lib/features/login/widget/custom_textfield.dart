@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_initializing_formals
 
 import 'package:flutter/material.dart';
+import 'package:note_app/common_libs.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -21,13 +22,6 @@ class CustomTextField extends StatelessWidget {
       keyboardType: TextInputType.text,
       controller: xController,
       decoration: InputDecoration(
-        fillColor: Colors.white,
-        hintStyle: const TextStyle(color: Colors.white),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white, width: 2.0),
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         hintText: hintText,
         prefixIcon: icon,
       ),

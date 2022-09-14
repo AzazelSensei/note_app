@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:note_app/common_libs.dart';
 import 'package:note_app/core/components/default_button.dart';
-
+import 'package:note_app/core/init/theme/colors_manager.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -34,67 +34,70 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Text("Private Notes Login"),
-        actions: [
-          Padding(
-            padding: context.right,
-            child: const ModeSwitcher(),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: context.lowHorPadding,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CustomLogo(),
-            const CustomSpacer(),
-            CustomTextField(
-              xController: _usernameController,
-              hintText: 'Username',
-              icon: const Icon(Icons.person, color: Colors.white),
-            ),
-            const CustomSpacer(),
-            passwordField(context),
-            registerTextButton(context),
-            const CustomSpacer2(),
-            BlocConsumer<LoginCubit, LoginState>(
-              listener: (context, state) {
-                if (state is LoginSuccess) {
-                  EasyLoading.showSuccess('Login Success!');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TaskGetView(
-                        token: state.message!,
-                      ),
-                    ),
-                  );
-                } else if (state is LoginError) {
-                  EasyLoading.showError(
-                      'Failed: ${state.message}\r\nStatus Code: ${state.statusCode}');
-                }
-              },
-              builder: (context, state) {
-                if (state is LoginLoading) {
-                  return SpinKitFadingCircle(
-                    itemBuilder: (BuildContext context, int index) {
-                      return DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: index.isEven ? Colors.white : Colors.black12,
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return loginButton;
-                }
-              },
-            ),
+    return GestureDetector(
+      onTap: () => _closeKeyboard(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: const Text("Private Notes Login"),
+          actions: [
+            Padding(
+              padding: context.right,
+              child: const ModeSwitcher(),
+            )
           ],
+        ),
+        body: Padding(
+          padding: context.lowHorPadding,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CustomLogo(),
+              const CustomSpacer(),
+              CustomTextField(
+                xController: _usernameController,
+                hintText: 'Username',
+                icon: const Icon(Icons.person),
+              ),
+              const CustomSpacer(),
+              passwordField(context),
+              registerTextButton(context),
+              const CustomSpacer2(),
+              BlocConsumer<LoginCubit, LoginState>(
+                listener: (context, state) {
+                  if (state is LoginSuccess) {
+                    EasyLoading.showSuccess('Login Success!');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TaskGetView(
+                          token: state.message!,
+                        ),
+                      ),
+                    );
+                  } else if (state is LoginError) {
+                    EasyLoading.showError(
+                        'Failed: ${state.message}\r\nStatus Code: ${state.statusCode}');
+                  }
+                },
+                builder: (context, state) {
+                  if (state is LoginLoading) {
+                    return SpinKitFadingCircle(
+                      itemBuilder: (BuildContext context, int index) {
+                        return DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: index.isEven ? Colors.white : Colors.black12,
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return loginButton;
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -109,7 +112,7 @@ class _LoginViewState extends State<LoginView> {
         },
         child: const Text(
           "I Don't Have a Account",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          style: TextStyle(fontWeight: FontWeight.w600),
         ));
   }
 
@@ -119,15 +122,8 @@ class _LoginViewState extends State<LoginView> {
       controller: _passwordController,
       obscureText: !isVisible,
       decoration: InputDecoration(
-        // fillColor: Colors.white,
-        hintStyle: const TextStyle(color: Colors.white),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white, width: 2.0),
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         hintText: 'Password',
-        prefixIcon: const Icon(Icons.lock, color: Colors.white),
+        prefixIcon: const Icon(Icons.lock),
         suffixIcon: IconButton(
           icon: Icon(
             isVisible ? Icons.visibility : Icons.visibility_off,
@@ -150,7 +146,7 @@ class _LoginViewState extends State<LoginView> {
               password: _passwordController.text);
         },
         text: "Sign In",
-        color: const Color(0xFF937DC2),
+        color: ColorManager.mainTheme,
       );
 }
 
