@@ -13,7 +13,7 @@ class ModeSwitcher extends StatefulWidget {
 }
 
 class _ModeSwitcherState extends State<ModeSwitcher> {
-  bool isDark = false;
+  bool isDark = true;
 
   @override
   void initState() {

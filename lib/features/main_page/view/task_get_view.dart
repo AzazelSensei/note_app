@@ -160,6 +160,9 @@ class _TaskGetViewState extends State<TaskGetView> {
                     child: Icon(
                       _selectNote != null ? Icons.edit : Icons.add,
                       size: 40,
+                      color: isDark == true
+                          ? ColorManager.white
+                          : ColorManager.black,
                     ),
                   ),
                 ),

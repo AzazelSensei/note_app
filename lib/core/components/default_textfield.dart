@@ -9,7 +9,6 @@ class DefaultTextField extends TextField {
   }) : super(
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: const TextStyle(color: Colors.white),
             border: const OutlineInputBorder(borderSide: BorderSide.none),
           ),
         );
