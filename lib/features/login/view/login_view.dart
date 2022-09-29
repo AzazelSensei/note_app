@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:note_app/common_libs.dart';
 import 'package:note_app/core/components/default_button.dart';
+import 'package:note_app/core/init/routes/app_router.dart';
 import 'package:note_app/core/init/theme/colors_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
+  static const String name = 'LoginView';
   @override
   State<LoginView> createState() => _LoginViewState();
 }
@@ -64,39 +67,9 @@ class _LoginViewState extends State<LoginView> {
               passwordField(context),
               registerTextButton(context),
               const CustomSpacer2(),
-              BlocConsumer<LoginCubit, LoginState>(
-                listener: (context, state) {
-                  if (state is LoginSuccess) {
-                    EasyLoading.showSuccess('Login Success!');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TaskGetView(
-                          token: state.message!,
-                        ),
-                      ),
-                    );
-                  } else if (state is LoginError) {
-                    EasyLoading.showError(
-                        'Failed: ${state.message}\r\nStatus Code: ${state.statusCode}');
-                  }
-                },
-                builder: (context, state) {
-                  if (state is LoginLoading) {
-                    return SpinKitFadingCircle(
-                      itemBuilder: (BuildContext context, int index) {
-                        return DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: index.isEven ? Colors.white : Colors.black12,
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    return loginButton;
-                  }
-                },
-              ),
+              blocConsumer(),
+              const CustomSpacer(),
+              flagZone(context),
             ],
           ),
         ),
@@ -104,9 +77,73 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
+  Row flagZone(BuildContext context) {
+    return Row(
+      children: [
+        const Spacer(
+          flex: 5,
+        ),
+        GestureDetector(
+            child: Flag.fromCode(
+              FlagsCode.TR,
+              height: 30,
+              width: 45,
+              fit: BoxFit.fill,
+            ),
+            onTap: () {
+              MyApp.setLocale(context, const Locale('tr'));
+            }),
+        const Spacer(
+          flex: 1,
+        ),
+        GestureDetector(
+          child: Flag.fromCode(
+            FlagsCode.US,
+            height: 30,
+            width: 45,
+            fit: BoxFit.fill,
+          ),
+          onTap: () {
+            MyApp.setLocale(context, const Locale('en'));
+          },
+        ),
+        const Spacer(
+          flex: 5,
+        ),
+      ],
+    );
+  }
+
+  BlocConsumer<LoginCubit, LoginState> blocConsumer() {
+    return BlocConsumer<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state is LoginSuccess) {
           EasyLoading.showSuccess(
               (AppLocalizations.of(context)!.login_success));
           context.router.replace(const TaskGetRoute());
+        } else if (state is LoginError) {
+          EasyLoading.showError(
+              'Failed: ${state.message}\r\nStatus Code: ${state.statusCode}');
+        }
+      },
+      builder: (context, state) {
+        if (state is LoginLoading) {
+          return SpinKitFadingCircle(
+            itemBuilder: (BuildContext context, int index) {
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  color: index.isEven ? Colors.white : Colors.black12,
+                ),
+              );
+            },
+          );
+        } else {
+          return loginButton;
+        }
+      },
+    );
+  }
+
   TextButton registerTextButton(BuildContext context) {
     return TextButton(
         onPressed: () {
