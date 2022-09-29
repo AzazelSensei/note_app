@@ -1,0 +1,11 @@
+{
+    "private_notes_login": "Private Notes Login",
+    "username": "Username",
+    "password": "Password",
+    "login_success": "Login Success!",
+    "delete_success": "Delete Success!",
+    "update_success": "Update Success!",
+    "add_success": "Add Success!",
+    "i_dont_have_a_acc": "I Don't Have a Account",
+    "sign_in": "Sign In"
+}

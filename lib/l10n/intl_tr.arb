@@ -1,0 +1,11 @@
+{
+    "private_notes_login": "Kişisal Notlar Giriş",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "login_success": "Giriş Başarılı!",
+    "delete_success": "Silme Başarılı!",
+    "update_success": "Güncelleme Tamamlandı!",
+    "add_success": "Ekleme Tamamlandı!",
+    "i_dont_have_a_acc": "Henüz Bir Hesabım Yok",
+    "sign_in": "Giriş Yap"
+}

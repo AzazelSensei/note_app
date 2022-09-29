@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:note_app/common_libs.dart';
 import 'package:note_app/core/components/default_button.dart';
 import 'package:note_app/core/init/theme/colors_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class _LoginViewState extends State<LoginView> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: const Text("Private Notes Login"),
+          title: Text(AppLocalizations.of(context)!.private_notes_login),
           actions: [
             Padding(
               padding: context.right,
@@ -58,7 +59,7 @@ class _LoginViewState extends State<LoginView> {
               const CustomSpacer(),
               CustomTextField(
                 xController: _usernameController,
-                hintText: 'Username',
+                hintText: (AppLocalizations.of(context)!.username),
                 icon: const Icon(Icons.person),
               ),
               const CustomSpacer(),
@@ -112,9 +113,9 @@ class _LoginViewState extends State<LoginView> {
               MaterialPageRoute(builder: (context) => const RegisterView()));
           _timer?.cancel();
         },
-        child: const Text(
-          "I Don't Have a Account",
-          style: TextStyle(fontWeight: FontWeight.w600),
+        child: Text(
+          (AppLocalizations.of(context)!.i_dont_have_a_acc),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ));
   }
 
@@ -124,7 +125,7 @@ class _LoginViewState extends State<LoginView> {
       controller: _passwordController,
       obscureText: !isVisible,
       decoration: InputDecoration(
-        hintText: 'Password',
+        hintText: (AppLocalizations.of(context)!.password),
         prefixIcon: const Icon(Icons.lock),
         suffixIcon: IconButton(
           icon: Icon(
@@ -147,7 +148,7 @@ class _LoginViewState extends State<LoginView> {
               username: _usernameController.text,
               password: _passwordController.text);
         },
-        text: "Sign In",
+        text: (AppLocalizations.of(context)!.sign_in),
         color: ColorManager.mainTheme,
       );
 }
