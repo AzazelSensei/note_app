@@ -1,5 +1,3 @@
-// ignore_for_file: unused_field, depend_on_referenced_packages
-
 import 'dart:async';
 
 import 'package:note_app/common_libs.dart';
@@ -10,11 +8,10 @@ import 'package:note_app/core/init/theme/colors_manager.dart';
 import '../../../core/components/default_textfield.dart';
 import '../cubit/task_delete_cubit/task_delete_cubit.dart';
 import '../cubit/task_update_cubit/task_update_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskGetView extends StatefulWidget {
-  const TaskGetView({Key? key, required this.token}) : super(key: key);
-
-  final String token;
+  const TaskGetView({super.key});
 
   @override
   State<TaskGetView> createState() => _TaskGetViewState();
@@ -24,12 +21,9 @@ class _TaskGetViewState extends State<TaskGetView> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
 
-  late final TaskDeleteCubit _taskDeleteCubit;
   late final TaskGetCubit _taskGetCubit;
-  late final TaskPostCubit _taskPostCubit;
 
   Message? _selectNote;
-  Timer? _timer;
   bool isDark = false;
 
   @override
@@ -37,8 +31,6 @@ class _TaskGetViewState extends State<TaskGetView> {
     super.initState();
 
     _taskGetCubit = context.read<TaskGetCubit>();
-    _taskPostCubit = context.read<TaskPostCubit>();
-    _taskDeleteCubit = context.read<TaskDeleteCubit>();
 
     _taskGetCubit.taskGet();
     Future.delayed(Duration.zero, () {
@@ -49,7 +41,6 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   Future<void> _onDeleted(TaskGetSuccess state, int index) async {
     await context.read<TaskDeleteCubit>().taskDelete(
-          token: widget.token,
           id: state.message![index].id!.toInt(),
         );
     await EasyLoading.showSuccess('Delete Success!');
@@ -67,7 +58,6 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   Future<void> _onUpdate() async {
     await context.read<TaskUpdateCubit>().taskUpdate(
-          token: widget.token,
           body: _contentController.text,
           id: _selectNote!.id!.toInt(),
           name: _titleController.text,
@@ -84,7 +74,6 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   void _forPost() async {
     await context.read<TaskPostCubit>().taskPost(
-          token: widget.token,
           name: _titleController.text,
           body: _contentController.text,
         );

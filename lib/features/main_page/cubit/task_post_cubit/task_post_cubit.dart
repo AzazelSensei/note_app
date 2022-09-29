@@ -7,18 +7,13 @@ class TaskPostCubit extends Cubit<TaskPostState> {
   final NoteRepository noteRepository;
 
   Future<void> taskPost({
-    required String token,
     required String name,
     required String body,
   }) async {
     emit(TaskPostLoading());
 
     try {
-      if (token.isEmpty) {
-        throw 'Kritik Hata';
-      }
-      final response =
-          await noteRepository.taskPost(token: token, body: body, name: name);
+      final response = await noteRepository.taskPost(body: body, name: name);
 
       emit(TaskPostSuccess(response.message, response.statusCode));
     } on DioError catch (e) {
@@ -30,6 +25,5 @@ class TaskPostCubit extends Cubit<TaskPostState> {
         statusCode: e.toString(),
       ));
     }
-    
   }
 }

@@ -8,15 +8,11 @@ class TaskDeleteCubit extends Cubit<TaskDeleteState> {
   final NoteRepository noteRepository;
 
   Future<void> taskDelete({
-    required String token,
     required int id,
   }) async {
     emit(TaskDeleteLoading());
 
     try {
-      if (token.isEmpty) {
-        throw 'Kritik Hata';
-      }
       final response = await noteRepository.taskDelete(id: id);
       emit(TaskDeleteSuccess(response.message, response.statusCode));
     } on DioError catch (e) {

@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages, unused_field
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class TokenSecureStorage {

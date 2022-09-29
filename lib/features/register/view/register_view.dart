@@ -2,8 +2,8 @@ import 'package:note_app/common_libs.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<RegisterView> createState() => _RegisterViewState();

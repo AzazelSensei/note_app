@@ -8,7 +8,6 @@ class TaskUpdateCubit extends Cubit<TaskUpdateState> {
   final NoteRepository noteRepository;
 
   Future<void> taskUpdate({
-    required String token,
     required String name,
     required int id,
     required String body,
@@ -16,11 +15,8 @@ class TaskUpdateCubit extends Cubit<TaskUpdateState> {
     emit(TaskUpdateLoading());
 
     try {
-      if (token.isEmpty) {
-        throw 'Kritik Hata';
-      }
-      final response = await noteRepository.taskUpdate(
-          id: id, body: body, name: name);
+      final response =
+          await noteRepository.taskUpdate(id: id, body: body, name: name);
 
       emit(TaskUpdateSuccess(response.message, response.statusCode));
     } on DioError catch (e) {

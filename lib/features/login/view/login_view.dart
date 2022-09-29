@@ -1,5 +1,3 @@
-// ignore_for_file: must_call_super
-
 import 'dart:async';
 
 import 'package:note_app/common_libs.dart';
@@ -7,9 +5,9 @@ import 'package:note_app/core/components/default_button.dart';
 import 'package:note_app/core/init/theme/colors_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
 
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
   @override
   State<LoginView> createState() => _LoginViewState();
 }

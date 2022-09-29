@@ -42,7 +42,7 @@ class NoteRepository {
     return RegisterModelPost.fromJson(response.data);
   }
 
-  Future<SearchResult> search({required String token, String name = ''}) async {
+  Future<SearchResult> search({required String name}) async {
     final response = await _dio.get(
       EndPoint.getSearch,
       queryParameters: {
@@ -76,9 +76,7 @@ class NoteRepository {
   }
 
   Future<SearchResult> taskPost(
-      {required String token,
-      required String name,
-      required String body}) async {
+      {required String name, required String body}) async {
     final response = await _dio.post(
       EndPoint.getTasks,
       data: {
