@@ -106,6 +106,9 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
+          EasyLoading.showSuccess(
+              (AppLocalizations.of(context)!.login_success));
+          context.router.replace(const TaskGetRoute());
   TextButton registerTextButton(BuildContext context) {
     return TextButton(
         onPressed: () {

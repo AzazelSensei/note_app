@@ -1,5 +1,6 @@
 import 'package:note_app/common_libs.dart';
 
+import 'core/init/routes/app_router.dart';
 import 'features/main_page/cubit/task_delete_cubit/task_delete_cubit.dart';
 import 'features/main_page/cubit/task_update_cubit/task_update_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -74,7 +75,9 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: DynamicTheme(
-        builder: (context, themeData) => MaterialApp(
+        builder: (context, themeData) => MaterialApp.router(
+          routerDelegate: _appRouter.delegate(),
+          routeInformationParser: _appRouter.defaultRouteParser(),
           locale: _locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
