@@ -81,7 +81,7 @@ class _TaskGetViewState extends State<TaskGetView> {
     _clearText();
     _closeKeyboard();
     _pc.close();
-    await EasyLoading.showSuccess('Add Success!');
+    await EasyLoading.showSuccess(AppLocalizations.of(context)!.add_success);
   }
 
   void _clearText() {
@@ -114,61 +114,67 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        TextEditingController().clear();
-        _pc.close();
-      },
-      child: Scaffold(
-        appBar: _appBar,
-        body: Column(
-          children: [
-            Expanded(
-              child: RefreshIndicator(
-                color: Colors.black,
-                backgroundColor: Colors.white,
-                onRefresh: () async => await _taskGetCubit.taskGet(),
-                child: BlocBuilder<TaskGetCubit, TaskGetState>(
-                  builder: _stateRouter,
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: SlidingUpPanel(
-                controller: _pc,
-                maxHeight: MediaQuery.of(context).size.height * 0.5,
-                minHeight: MediaQuery.of(context).size.height * 0.07,
-                color: isDark == true
-                    ? ColorManager.darktheme
-                    : ColorManager.mainTheme,
-                collapsed: GestureDetector(
-                  onTap: () => _pc.open(),
-                  child: Center(
-                    child: Icon(
-                      _selectNote != null ? Icons.edit : Icons.add,
-                      size: 40,
-                      color: isDark == true
-                          ? ColorManager.white
-                          : ColorManager.black,
+
+    return Localizations.override(
+      context: context,
+      locale: const Locale("en"),
+      child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            TextEditingController().clear();
+            _pc.close();
+          },
+          child: Scaffold(
+            appBar: _appBar,
+            body: Column(
+              children: [
+                Expanded(
+                  child: RefreshIndicator(
+                    color: Colors.black,
+                    backgroundColor: Colors.white,
+                    onRefresh: () async => await _taskGetCubit.taskGet(),
+                    child: BlocBuilder<TaskGetCubit, TaskGetState>(
+                      builder: _stateBuilder,
                     ),
                   ),
                 ),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SlidingUpPanel(
+                    controller: _pc,
+                    maxHeight: MediaQuery.of(context).size.height * 0.5,
+                    minHeight: MediaQuery.of(context).size.height * 0.07,
+                    color: isDark == true
+                        ? ColorManager.darktheme
+                        : ColorManager.mainTheme,
+                    collapsed: GestureDetector(
+                      onTap: () => _pc.open(),
+                      child: Center(
+                        child: Icon(
+                          _selectNote != null ? Icons.edit : Icons.add,
+                          size: 40,
+                          color: isDark == true
+                              ? ColorManager.white
+                              : ColorManager.black,
+                        ),
+                      ),
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+                    panel: _slidingPanel,
+                  ),
                 ),
-                panel: _slidingPanel,
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          )),
     );
   }
 
-  Widget _stateRouter(context, state) {
+  //bottom navigation bar?
+
+  Widget _stateBuilder(context, state) {
     if (state is TaskGetLoading) {
       return Center(
         child: spinkit,
@@ -233,6 +239,13 @@ class _TaskGetViewState extends State<TaskGetView> {
           ),
         ),
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            // onPressed: () => context.goNamed('/search'),
+            onPressed: () {},
+            icon: const Icon(Icons.search, color: Colors.white),
+          )
+        ],
         title: const Text("My Notes"),
       );
 
