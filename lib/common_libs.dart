@@ -1,4 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
 export 'dart:math';
 
 //main packages
@@ -21,12 +20,14 @@ export 'package:sliding_up_panel/sliding_up_panel.dart';
 export 'package:note_app/core/extension/ui_extension.dart';
 export 'package:flutter_secure_storage/flutter_secure_storage.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
-
 export 'package:flutter_easyloading/flutter_easyloading.dart';
+export 'package:flag/flag.dart';
+export 'package:auto_route/auto_route.dart';
 
 //features
 export 'features/register/cubit/cubit/register_cubit.dart';
 export 'package:note_app/features/main_page/cubit/task_post_cubit/task_post_cubit.dart';
+export 'package:note_app/features/search/view/search_view.dart';
 
 //widgets
 export 'package:note_app/core/utils/toast.dart';
@@ -39,4 +40,4 @@ export 'package:note_app/features/main_page/cubit/task_get_cubit/task_get_cubit.
 export 'package:note_app/features/main_page/view/task_get_view.dart';
 
 //models
-export 'package:note_app/features/login/model/search_model.dart';
+export 'package:note_app/features/search/model/search_model.dart';

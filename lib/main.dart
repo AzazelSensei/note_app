@@ -3,6 +3,7 @@ import 'package:note_app/common_libs.dart';
 import 'core/init/routes/app_router.dart';
 import 'features/main_page/cubit/task_delete_cubit/task_delete_cubit.dart';
 import 'features/main_page/cubit/task_update_cubit/task_update_cubit.dart';
+import 'features/search/search_cubit/search_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
@@ -12,7 +13,6 @@ void main() {
   runApp(MyApp(noteRepository: noteRepository));
 }
 
-class MyApp extends StatelessWidget {
 class MyApp extends StatefulWidget {
   const MyApp({Key? key, required this.noteRepository}) : super(key: key);
   final NoteRepository noteRepository;
@@ -56,22 +56,25 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LoginCubit>(
-          create: (context) => LoginCubit(noteRepository),
+          create: (context) => LoginCubit(widget.noteRepository),
         ),
         BlocProvider<RegisterCubit>(
-          create: (context) => RegisterCubit(noteRepository),
+          create: (context) => RegisterCubit(widget.noteRepository),
         ),
         BlocProvider<TaskPostCubit>(
-          create: (context) => TaskPostCubit(noteRepository),
+          create: (context) => TaskPostCubit(widget.noteRepository),
         ),
         BlocProvider<TaskGetCubit>(
-          create: (context) => TaskGetCubit(noteRepository),
+          create: (context) => TaskGetCubit(widget.noteRepository),
         ),
         BlocProvider<TaskDeleteCubit>(
-          create: (context) => TaskDeleteCubit(noteRepository),
+          create: (context) => TaskDeleteCubit(widget.noteRepository),
         ),
         BlocProvider<TaskUpdateCubit>(
-          create: (context) => TaskUpdateCubit(noteRepository),
+          create: (context) => TaskUpdateCubit(widget.noteRepository),
+        ),
+        BlocProvider<SearchCubit>(
+          create: (context) => SearchCubit(widget.noteRepository),
         ),
       ],
       child: DynamicTheme(
@@ -85,7 +88,6 @@ class _MyAppState extends State<MyApp> {
           title: 'Private Notes',
           debugShowCheckedModeBanner: false,
           theme: themeData,
-          home: const LoginView(),
         ),
         themeCollection: ThemeCollection(
           themes: {
