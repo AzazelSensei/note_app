@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 // ignore: unused_import
-import 'package:note_app/features/login/model/search_model.dart';
+import 'package:note_app/features/search/model/search_model.dart';
 import 'package:note_app/network/endpoint.dart';
 import 'package:note_app/network/repository.dart';
 
@@ -58,7 +58,6 @@ void main() {
         if (_token != null) {
           final response = await _noteRepository.search(
             name: 't',
-            token: _token!,
           );
 
           debugPrint(response.message.toString());
