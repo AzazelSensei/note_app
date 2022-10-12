@@ -7,5 +7,14 @@
     "update_success": "Güncelleme Tamamlandı!",
     "add_success": "Ekleme Tamamlandı!",
     "i_dont_have_a_acc": "Henüz Bir Hesabım Yok",
-    "sign_in": "Giriş Yap"
+    "i_forgot_my_password": "Şifremi Unuttum",
+    "i_forgot_my_question": "Güvenlik Sorumu Unuttum",
+    "password_successfully_changed": "Şifre Başarı İle Değiştirildi!",
+    "sign_in": "Giriş Yap",
+    "onboard_main_text1": "Merhaba,",
+    "onboard_text1": "Kişisel not alma uygulamasına hoş geldiniz",
+    "onboard_main_text2": "Notlarınızı güvenle saklayabilirsiniz",
+    "onboard_text2": "Verileriniz hiçbir şekilde işlenmemekte ve üçüncü kişilerle paylaşılmamaktadır.",
+    "onboard_main_text3": "İsterseniz şifrenizi paylaşabilir",
+    "onboard_text3": "Arkadaşlarınız ile veri paylaşmak için kullanabilirsiniz."
 }

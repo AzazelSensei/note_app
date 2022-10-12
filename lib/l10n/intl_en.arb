@@ -7,5 +7,14 @@
     "update_success": "Update Success!",
     "add_success": "Add Success!",
     "i_dont_have_a_acc": "I Don't Have a Account",
-    "sign_in": "Sign In"
+    "i_forgot_my_password": "I Forgot My Password",
+    "i_forgot_my_question":"I Fotgot My Question",
+    "password_successfully_changed": "Password Successfully Changed!",
+    "sign_in": "Sign In",
+    "onboard_main_text1": "Hello,",
+    "onboard_text1": " Welcome to prsonal note taking application",
+    "onboard_main_text2": "You can safely store your notes",
+    "onboard_text2": "Your data is not processed in any way and is not shared with any third party.",
+    "onboard_main_text3": "You can share your password if you want.",
+    "onboard_text3": "You can use it to share data with your friends."
 }
