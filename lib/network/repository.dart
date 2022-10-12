@@ -98,6 +98,24 @@ class NoteRepository {
     }
   }
 
+  Future<ForgotPassword> forgotPassword(
+      String username, String answer, String password) async {
+    final response = await _dio.post(
+      EndPoint.updatePass,
+      data: {
+        'username': username,
+        'answer': answer,
+        'password': password,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return ForgotPassword.fromJson(response.data);
+    } else {
+      throw response.statusMessage.toString();
+    }
+  }
+
   Future<SearchResult> taskDelete({required int id}) async {
     final response = await _dio.delete(
       EndPoint.getTasks,

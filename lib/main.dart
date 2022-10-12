@@ -1,4 +1,5 @@
 import 'package:note_app/common_libs.dart';
+import 'package:note_app/features/forgot_password/cubit/forgot_password_cubit.dart';
 
 import 'core/init/routes/app_router.dart';
 import 'features/main_page/cubit/task_delete_cubit/task_delete_cubit.dart';
@@ -75,6 +76,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<SearchCubit>(
           create: (context) => SearchCubit(widget.noteRepository),
+        ),
+        BlocProvider<ForgotPasswordCubit>(
+          create: (context) => ForgotPasswordCubit(widget.noteRepository),
         ),
       ],
       child: DynamicTheme(
