@@ -7,6 +7,10 @@ class EndPoint {
   static const String register = 'register/';
 
   static const String getTasks = 'task/';
-  
+
   static const String getSearch = 'search';
+
+  static const String updatePass = 'update-pass/';
+
+  static const String answer = 'answer';
 }
