@@ -5,7 +5,10 @@ import 'package:note_app/core/components/default_button.dart';
 import 'package:note_app/core/init/routes/app_router.dart';
 import 'package:note_app/core/init/theme/colors_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:note_app/features/forgot_password/view/forgot_password_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/constants/string_constants.dart';
 import '../../../main.dart';
 
 class LoginView extends StatefulWidget {
@@ -73,7 +76,10 @@ class _LoginViewState extends State<LoginView> {
               ),
               const CustomSpacer(),
               passwordField(context),
+              const CustomSpacer(),
               registerTextButton(context),
+              forgotPass(context),
+              const CustomSpacer(),
               blocConsumer(),
               const CustomSpacer(),
               flagZone(context),
