@@ -17,6 +17,12 @@ class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    OnBoardRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const OnBoardView(),
+      );
+    },
     LoginRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
         routeData: routeData,
@@ -41,6 +47,18 @@ class _$AppRouter extends RootStackRouter {
         child: const TaskGetView(),
       );
     },
+    ProfileRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const ProfileView(),
+      );
+    },
+    ForgotPasswordRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const ForgotPasswordView(),
+      );
+    },
   };
 
   @override
@@ -50,6 +68,10 @@ class _$AppRouter extends RootStackRouter {
           path: '/',
           redirectTo: 'login',
           fullMatch: true,
+        ),
+        RouteConfig(
+          OnBoardRoute.name,
+          path: 'onboard',
         ),
         RouteConfig(
           LoginRoute.name,
@@ -67,7 +89,27 @@ class _$AppRouter extends RootStackRouter {
           TaskGetRoute.name,
           path: 'home',
         ),
+        RouteConfig(
+          ProfileRoute.name,
+          path: 'profile',
+        ),
+        RouteConfig(
+          ForgotPasswordRoute.name,
+          path: 'forgot-password',
+        ),
       ];
+}
+
+/// generated route for
+/// [OnBoardView]
+class OnBoardRoute extends PageRouteInfo<void> {
+  const OnBoardRoute()
+      : super(
+          OnBoardRoute.name,
+          path: 'onboard',
+        );
+
+  static const String name = 'OnBoardRoute';
 }
 
 /// generated route for
@@ -116,4 +158,28 @@ class TaskGetRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'TaskGetRoute';
+}
+
+/// generated route for
+/// [ProfileView]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute()
+      : super(
+          ProfileRoute.name,
+          path: 'profile',
+        );
+
+  static const String name = 'ProfileRoute';
+}
+
+/// generated route for
+/// [ForgotPasswordView]
+class ForgotPasswordRoute extends PageRouteInfo<void> {
+  const ForgotPasswordRoute()
+      : super(
+          ForgotPasswordRoute.name,
+          path: 'forgot-password',
+        );
+
+  static const String name = 'ForgotPasswordRoute';
 }
