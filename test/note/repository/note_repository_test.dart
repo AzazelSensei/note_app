@@ -36,7 +36,8 @@ void main() {
     });
     test('GET: /register request', () async {
       try {
-        final response = await _noteRepository.register('admine', 'admine');
+        final response = await _noteRepository.register(
+            'admine', 'admine', 'question', 'answer');
 
         if (response.message != null) {
           _token = response.message!;
