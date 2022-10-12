@@ -10,7 +10,6 @@ import '../../../main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
-  static const String name = 'LoginView';
   @override
   State<LoginView> createState() => _LoginViewState();
 }
@@ -25,7 +24,6 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
-
     getLocalData();
     isVisible = false;
     EasyLoading.addStatusCallback((status) {
@@ -76,7 +74,6 @@ class _LoginViewState extends State<LoginView> {
               const CustomSpacer(),
               passwordField(context),
               registerTextButton(context),
-              const CustomSpacer2(),
               blocConsumer(),
               const CustomSpacer(),
               flagZone(context),
@@ -214,24 +211,4 @@ class _LoginViewState extends State<LoginView> {
         text: (AppLocalizations.of(context)!.sign_in),
         color: ColorManager.mainTheme,
       );
-}
-
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      title: const Text('Private Notes Login'),
-      actions: [
-        Padding(
-          padding: context.right,
-          child: const ModeSwitcher(),
-        )
-      ],
-    );
-  }
 }
