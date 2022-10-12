@@ -44,12 +44,12 @@ class _LoginViewState extends State<LoginView> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           title: Text(AppLocalizations.of(context)!.private_notes_login),
-          actions: [
-            Padding(
-              padding: context.right,
-              child: const ModeSwitcher(),
-            )
-          ],
+          // actions: [
+          //   Padding(
+          //     padding: context.right,
+          //     child: const ModeSwitcher(),
+          //   )
+          // ],
         ),
         body: Padding(
           padding: context.lowHorPadding,
