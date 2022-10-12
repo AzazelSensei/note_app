@@ -12,6 +12,8 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _questionController = TextEditingController();
+  final TextEditingController _answerController = TextEditingController();
 
   void _closeKeyboard() => FocusScope.of(context).unfocus();
 
@@ -48,6 +50,16 @@ class _RegisterViewState extends State<RegisterView> {
                   xController: _passwordController,
                   hintText: "Password",
                   icon: const Icon(Icons.lock)),
+              const CustomSpacer(),
+              CustomTextField(
+                  xController: _questionController,
+                  hintText: "Question",
+                  icon: const Icon(Icons.question_answer)),
+              const CustomSpacer(),
+              CustomTextField(
+                  xController: _answerController,
+                  hintText: "Answer",
+                  icon: const Icon(Icons.question_answer)),
               const CustomSpacer2(),
               BlocConsumer<RegisterCubit, RegisterState>(
                 listener: (context, state) async {
@@ -107,7 +119,9 @@ class _RegisterViewState extends State<RegisterView> {
         onPressed: () {
           context.read<RegisterCubit>().register(
               username: _usernameController.text,
-              password: _passwordController.text);
+              password: _passwordController.text,
+              question: _questionController.text,
+              answer: _answerController.text);
         },
         text: "Register",
         textStyle: const TextStyle(

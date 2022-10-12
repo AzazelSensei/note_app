@@ -13,16 +13,18 @@ class RegisterCubit extends Cubit<RegisterState> {
   final NoteRepository noteRepository;
 
   Future<void> register(
-      {required String username, required String password}) async {
+      {required String username, required String password, required String answer, required String question}) async {
     emit(RegisterLoading());
 
     try {
       if (username.isEmpty || password.isEmpty) {
         throw 'Kullanıcı Adı veya Şifre Boş Olamaz';
       } else if (username.isNotEmpty) {
-        final response = await noteRepository.register(username, password);
+        final response =
+            await noteRepository.register(username, password, question, answer);
       }
-      final response = await noteRepository.register(username, password);
+      final response =
+          await noteRepository.register(username, password, question, answer);
       if (response.statusCode == 200) {
         emit(RegisterSuccess(response.message, response.statusCode));
       } else if (response.statusCode == 400) {

@@ -34,10 +34,13 @@ class NoteRepository {
     }
   }
 
-  Future<RegisterModelPost> register(String username, String password) async {
+  Future<RegisterModelPost> register(
+      String username, String password, String question, String answer) async {
     final response = await _dio.post(EndPoint.register, data: {
       'username': username,
       'password': password,
+      'question': question,
+      'answer': answer,
     });
     return RegisterModelPost.fromJson(response.data);
   }
