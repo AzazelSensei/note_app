@@ -246,6 +246,9 @@ class _TaskGetViewState extends State<TaskGetView> {
             icon: const Icon(Icons.search, color: Colors.white),
           )
         ],
+        leading: IconButton(
+            onPressed: () => context.router.push(const ProfileRoute()),
+            icon: const Icon(Icons.person, color: Colors.white)),
         title: const Text("My Notes"),
       );
 
