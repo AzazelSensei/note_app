@@ -26,12 +26,22 @@ class _LoginViewState extends State<LoginView> {
   void initState() {
     super.initState();
 
+    getLocalData();
     isVisible = false;
     EasyLoading.addStatusCallback((status) {
       if (status == EasyLoadingStatus.dismiss) {
         _timer?.cancel();
       }
     });
+  }
+
+  Future<void> getLocalData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final bool? isShowOnBoard = prefs.getBool(StringConstants.showOnBoardKey);
+    if (!(isShowOnBoard == true)) {
+      await prefs.setBool(StringConstants.showOnBoardKey, true);
+      context.router.push(const OnBoardRoute());
+    }
   }
 
   void _closeKeyboard() => FocusScope.of(context).unfocus();
