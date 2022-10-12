@@ -157,6 +157,21 @@ class _LoginViewState extends State<LoginView> {
         ));
   }
 
+  TextButton forgotPass(BuildContext context) {
+    return TextButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ForgotPasswordView()));
+          _timer?.cancel();
+        },
+        child: Text(
+          (AppLocalizations.of(context)!.i_forgot_my_password),
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ));
+  }
+
   TextFormField passwordField(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
