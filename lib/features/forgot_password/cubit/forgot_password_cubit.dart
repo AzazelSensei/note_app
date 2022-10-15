@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:note_app/core/utils/secure_storage.dart';
 
 import '../../../common_libs.dart';
 
@@ -10,7 +9,6 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   ForgotPasswordCubit(this.noteRepository) : super(ForgotPasswordInitial());
 
   final NoteRepository noteRepository;
-  final TokenSecureStorage storage = TokenSecureStorage();
 
   Future<void> forgotPassword(
       {required String username,
