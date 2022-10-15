@@ -1,14 +1,18 @@
 import 'dart:async';
 
+import 'package:flutter/gestures.dart';
 import 'package:note_app/common_libs.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:note_app/core/components/custom_text_button.dart';
 import 'package:note_app/core/components/default_action_pane.dart';
 import 'package:note_app/core/components/default_button.dart';
+import 'package:note_app/core/init/routes/app_router.dart';
 import 'package:note_app/core/init/theme/colors_manager.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/components/default_textfield.dart';
 import '../cubit/task_delete_cubit/task_delete_cubit.dart';
 import '../cubit/task_update_cubit/task_update_cubit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskGetView extends StatefulWidget {
   const TaskGetView({super.key});
@@ -22,6 +26,7 @@ class _TaskGetViewState extends State<TaskGetView> {
   final TextEditingController _contentController = TextEditingController();
 
   late final TaskGetCubit _taskGetCubit;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   Message? _selectNote;
   bool isDark = false;
@@ -81,6 +86,7 @@ class _TaskGetViewState extends State<TaskGetView> {
     _clearText();
     _closeKeyboard();
     _pc.close();
+    // ignore: use_build_context_synchronously
     await EasyLoading.showSuccess(AppLocalizations.of(context)!.add_success);
   }
 
@@ -89,12 +95,23 @@ class _TaskGetViewState extends State<TaskGetView> {
     _contentController.clear();
   }
 
+  void _openDrawer(BuildContext context) {
+    Scaffold.of(context).openDrawer();
+  }
+
   void checkTheme() {
     int themeId = DynamicTheme.of(context)!.themeId;
     if (themeId == 1) {
       isDark = false;
     } else {
       isDark = true;
+    }
+  }
+
+  final Uri _url = Uri.parse('https://www.linkedin.com/in/abdullah-gokmen/');
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
     }
   }
 
@@ -114,65 +131,115 @@ class _TaskGetViewState extends State<TaskGetView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Localizations.override(
       context: context,
       locale: const Locale("en"),
       child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-            TextEditingController().clear();
-            _pc.close();
-          },
-          child: Scaffold(
-            appBar: _appBar,
-            body: Column(
-              children: [
-                Expanded(
-                  child: RefreshIndicator(
-                    color: Colors.black,
-                    backgroundColor: Colors.white,
-                    onRefresh: () async => await _taskGetCubit.taskGet(),
-                    child: BlocBuilder<TaskGetCubit, TaskGetState>(
-                      builder: _stateBuilder,
-                    ),
+        onTap: () {
+          FocusScope.of(context).unfocus();
+          TextEditingController().clear();
+          _pc.close();
+        },
+        child: Scaffold(
+          key: scaffoldKey,
+          drawerEnableOpenDragGesture: false,
+          drawer: customDrawer,
+          appBar: _appBar(context),
+          body: Column(
+            children: [
+              Expanded(
+                child: RefreshIndicator(
+                  color: Colors.black,
+                  backgroundColor: Colors.white,
+                  onRefresh: () async => await _taskGetCubit.taskGet(),
+                  child: BlocBuilder<TaskGetCubit, TaskGetState>(
+                    builder: _stateBuilder,
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SlidingUpPanel(
-                    controller: _pc,
-                    maxHeight: MediaQuery.of(context).size.height * 0.5,
-                    minHeight: MediaQuery.of(context).size.height * 0.07,
-                    color: isDark == true
-                        ? ColorManager.darktheme
-                        : ColorManager.mainTheme,
-                    collapsed: GestureDetector(
-                      onTap: () => _pc.open(),
-                      child: Center(
-                        child: Icon(
-                          _selectNote != null ? Icons.edit : Icons.add,
-                          size: 40,
-                          color: isDark == true
-                              ? ColorManager.white
-                              : ColorManager.black,
-                        ),
-                      ),
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                    ),
-                    panel: _slidingPanel,
-                  ),
-                ),
-              ],
-            ),
-          )),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: _slidingUpPanel(context),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-  //bottom navigation bar?
+  SlidingUpPanel _slidingUpPanel(BuildContext context) {
+    return SlidingUpPanel(
+      controller: _pc,
+      maxHeight: MediaQuery.of(context).size.height * 0.5,
+      minHeight: MediaQuery.of(context).size.height * 0.07,
+      color: isDark == true ? ColorManager.darktheme : ColorManager.mainTheme,
+      collapsed: GestureDetector(
+        onTap: () => _pc.open(),
+        child: Center(
+          child: Icon(
+            _selectNote != null ? Icons.edit : Icons.add,
+            size: 40,
+            color: isDark == true ? ColorManager.white : ColorManager.black,
+          ),
+        ),
+      ),
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(30.0),
+        topRight: Radius.circular(30.0),
+      ),
+      panel: _slidingPanel,
+    );
+  }
+
+  AppBar _appBar(BuildContext context) {
+    return AppBar(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(30),
+        ),
+      ),
+      automaticallyImplyLeading: false,
+      actions: [
+        IconButton(
+          onPressed: () => context.router.push(const SearchRoute()),
+          icon: const Icon(Icons.search, color: Colors.white),
+        )
+      ],
+      leading: Builder(
+        builder: (context) {
+          return IconButton(
+              onPressed: () => _openDrawer(context),
+              icon: const Icon(Icons.menu_rounded, color: Colors.white));
+        },
+      ),
+      title: Text(AppLocalizations.of(context)!.private_notes),
+    );
+  }
+
+  Widget get customDrawer => Drawer(
+        child: SafeArea(
+          child: Padding(
+            padding: context.lowHorPadding,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CustomSpacer2(),
+                CustomTextButton(
+                  text: AppLocalizations.of(context)!.categories,
+                  fontSize: 30,
+                ),
+                CustomTextButton(
+                  text: AppLocalizations.of(context)!.info,
+                  fontSize: 20,
+                  onpressed: () => _handleAboutPressed(context),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ).animate().fade().scale();
 
   Widget _stateBuilder(context, state) {
     if (state is TaskGetLoading) {
@@ -232,25 +299,51 @@ class _TaskGetViewState extends State<TaskGetView> {
     }
   }
 
-  AppBar get _appBar => AppBar(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(30),
+  void _handleAboutPressed(BuildContext context) async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    showAboutDialog(
+      context: context,
+      applicationName: "Note App",
+      applicationVersion: packageInfo.version,
+      applicationLegalese: '© 2022 Crossp Software',
+      applicationIcon: Image.asset(
+        'assets/priv_notes_logo.png',
+        width: 70,
+        height: 70,
+      ),
+      children: [
+        const CustomSpacer(),
+        Text.rich(
+          TextSpan(
+            text: 'Developed by ',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+            children: [
+              TextSpan(
+                text: 'Abdullah Gökmen',
+                style: const TextStyle(
+                  color: Colors.blue,
+                  fontSize: 16,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    _launchUrl();
+                  },
+              ),
+            ],
           ),
         ),
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            // onPressed: () => context.goNamed('/search'),
-            onPressed: () {},
-            icon: const Icon(Icons.search, color: Colors.white),
-          )
-        ],
-        leading: IconButton(
-            onPressed: () => context.router.push(const ProfileRoute()),
-            icon: const Icon(Icons.person, color: Colors.white)),
-        title: const Text("My Notes"),
-      );
+        const Text(
+          'Note App is a simple note app that you can use to write your notes.',
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget get _slidingPanel => SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -262,12 +355,12 @@ class _TaskGetViewState extends State<TaskGetView> {
             children: [
               DefaultTextField(
                 controller: _titleController,
-                hintText: "Title",
+                hintText: AppLocalizations.of(context)!.title,
                 maxLines: null,
               ),
               DefaultTextField(
                 controller: _contentController,
-                hintText: "Content",
+                hintText: AppLocalizations.of(context)!.content,
                 maxLines: null,
               ),
               const CustomSpacer(),
@@ -282,7 +375,9 @@ class _TaskGetViewState extends State<TaskGetView> {
           Expanded(
             child: DefaultButton(
               onPressed: _selectNote != null ? _onUpdate : _forPost,
-              text: _selectNote != null ? "Update Task" : "Add Task",
+              text: _selectNote != null
+                  ? AppLocalizations.of(context)!.update_task
+                  : AppLocalizations.of(context)!.add_task,
             ),
           ),
           if (_selectNote != null) ...[
@@ -298,7 +393,7 @@ class _TaskGetViewState extends State<TaskGetView> {
                 _closeKeyboard();
                 _pc.close();
               },
-              text: "Cancel",
+              text: AppLocalizations.of(context)!.cancel,
             )
           ],
         ],
