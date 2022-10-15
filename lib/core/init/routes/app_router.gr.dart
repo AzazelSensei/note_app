@@ -59,6 +59,12 @@ class _$AppRouter extends RootStackRouter {
         child: const ForgotPasswordView(),
       );
     },
+    ForgotQuestionRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const ForgotQuestionView(),
+      );
+    },
   };
 
   @override
@@ -96,6 +102,10 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           ForgotPasswordRoute.name,
           path: 'forgot-password',
+        ),
+        RouteConfig(
+          ForgotQuestionRoute.name,
+          path: 'forgot-question',
         ),
       ];
 }
@@ -182,4 +192,16 @@ class ForgotPasswordRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ForgotPasswordRoute';
+}
+
+/// generated route for
+/// [ForgotQuestionView]
+class ForgotQuestionRoute extends PageRouteInfo<void> {
+  const ForgotQuestionRoute()
+      : super(
+          ForgotQuestionRoute.name,
+          path: 'forgot-question',
+        );
+
+  static const String name = 'ForgotQuestionRoute';
 }

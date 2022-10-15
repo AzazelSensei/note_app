@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:note_app/features/forgot_password/view/forgot_password_view.dart';
+import 'package:note_app/features/forgot_question/view/forgot_question_view.dart';
 import 'package:note_app/features/login/view/login_view.dart';
 import 'package:note_app/features/onboard/view/onboard_view.dart';
 import 'package:note_app/features/profile/view/profile_view.dart';
@@ -20,6 +21,7 @@ part 'app_router.gr.dart';
     AutoRoute(page: TaskGetView, path: 'home'),
     AutoRoute(page: ProfileView, path: 'profile'),
     AutoRoute(page: ForgotPasswordView, path: 'forgot-password'),
+    AutoRoute(page: ForgotQuestionView, path: 'forgot-question'),
   ],
 )
 class AppRouter extends _$AppRouter {}
