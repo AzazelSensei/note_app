@@ -7,4 +7,4 @@ It is a working note taking application.
 
 ## Getting Started
 
-Using: BLoC/Cubit, Dynamic Theme, MVVM Architecture, Localization, Dio, 
+Using: BLoC/Cubit, Dynamic Theme, MVVM Architecture, Localization, Dio.
