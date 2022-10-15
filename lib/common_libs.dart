@@ -1,6 +1,7 @@
 export 'dart:math';
 
 //main packages
+export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'package:flutter_easyloading/flutter_easyloading.dart';
 export 'package:flag/flag.dart';
 export 'package:auto_route/auto_route.dart';
+export 'package:flutter_animate/flutter_animate.dart';
 
 //features
 export 'features/register/cubit/cubit/register_cubit.dart';
