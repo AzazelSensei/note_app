@@ -6,7 +6,6 @@ import 'core/init/routes/app_router.dart';
 import 'features/main_page/cubit/task_delete_cubit/task_delete_cubit.dart';
 import 'features/main_page/cubit/task_update_cubit/task_update_cubit.dart';
 import 'features/search/search_cubit/search_cubit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   final noteRepository =
