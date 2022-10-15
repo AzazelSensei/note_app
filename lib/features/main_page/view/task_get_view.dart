@@ -9,10 +9,11 @@ import 'package:note_app/core/components/default_button.dart';
 import 'package:note_app/core/init/routes/app_router.dart';
 import 'package:note_app/core/init/theme/colors_manager.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../core/components/default_textfield.dart';
 import '../cubit/task_delete_cubit/task_delete_cubit.dart';
 import '../cubit/task_update_cubit/task_update_cubit.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class TaskGetView extends StatefulWidget {
   const TaskGetView({super.key});
