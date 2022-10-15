@@ -12,5 +12,5 @@ class EndPoint {
 
   static const String updatePass = 'update-pass/';
 
-  static const String answer = 'answer';
+  static const String answer = 'question/';
 }
