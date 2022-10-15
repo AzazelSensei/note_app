@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/core/init/theme/colors_manager.dart';
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
-    Key? key, required this.text,
+    Key? key,
+    required this.text,
+    this.onpressed,
+    this.fontSize,
   }) : super(key: key);
 
   final String text;
+  final void Function()? onpressed;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () {},
+        onPressed: onpressed,
         child: Text(
           (text),
-          style: const TextStyle(fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w600,
+              color: ColorManager.white),
         ));
   }
 }
