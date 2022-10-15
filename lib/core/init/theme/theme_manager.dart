@@ -152,6 +152,7 @@ class ThemeManager {
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             foregroundColor: ColorManager.white,
+            
           ),
         ),
       );
