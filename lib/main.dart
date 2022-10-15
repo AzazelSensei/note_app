@@ -95,7 +95,6 @@ class _MyAppState extends State<MyApp> {
         ),
         themeCollection: ThemeCollection(
           themes: {
-            1: ThemeManager.theme,
             0: ThemeManager.darkTheme,
           },
         ),
