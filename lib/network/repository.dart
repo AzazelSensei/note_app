@@ -1,5 +1,6 @@
 import 'package:note_app/common_libs.dart';
 import 'package:note_app/features/forgot_password/model/forgot_password_model.dart';
+import 'package:note_app/features/forgot_question/model/fotgot_question_model.dart';
 import 'package:note_app/features/login/model/login_model.dart';
 import 'package:note_app/features/register/model/register_model.dart';
 
@@ -99,20 +100,16 @@ class NoteRepository {
     }
   }
 
-  Future<SearchResult> forgotQuestion(String username, String answer) async {
-    final response = await _dio.post(
-      EndPoint.getTasks,
-      data: {
+  Future<GetQuestion> forgotQuestion(String username) async {
+    final response = await _dio.get(
+      EndPoint.answer,
+      queryParameters: {
         'username': username,
-        'answer': answer,
       },
-      options: Options(
-        headers: await headers,
-      ),
     );
 
     if (response.statusCode == 200) {
-      return SearchResult.fromJson(response.data);
+      return GetQuestion.fromJson(response.data);
     } else {
       throw response.statusMessage.toString();
     }
