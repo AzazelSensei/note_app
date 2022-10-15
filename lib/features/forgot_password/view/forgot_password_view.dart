@@ -1,5 +1,4 @@
 import 'package:note_app/common_libs.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:note_app/core/components/custom_text_button.dart';
 import 'package:note_app/core/components/default_button.dart';
 import 'package:note_app/core/init/routes/app_router.dart';
@@ -22,7 +21,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Forgot My Password"),
+        title: Text(AppLocalizations.of(context)!.i_forgot_my_password),
         backgroundColor: Colors.transparent,
       ),
       body: Padding(
@@ -33,17 +32,17 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           children: [
             CustomTextField(
                 xController: _usernameController,
-                hintText: "Username",
+                hintText: AppLocalizations.of(context)!.username,
                 icon: const Icon(Icons.person)),
             const CustomSpacer(),
             CustomTextField(
                 xController: _asnwerController,
-                hintText: "Answer",
+                hintText: AppLocalizations.of(context)!.answer,
                 icon: const Icon(Icons.question_answer)),
             const CustomSpacer(),
             CustomTextField(
                 xController: _passwordController,
-                hintText: "New Password",
+                hintText: AppLocalizations.of(context)!.new_password,
                 icon: const Icon(Icons.lock)),
             const CustomSpacer2(),
             BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
@@ -67,6 +66,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             ),
             const CustomSpacer2(),
             CustomTextButton(
+                onpressed: (() =>
+                    context.router.push(const ForgotQuestionRoute())),
                 text: AppLocalizations.of(context)!.i_forgot_my_question),
           ],
         ),
@@ -77,7 +78,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   DefaultButton customButton(BuildContext context) => DefaultButton(
         color: ColorManager.mainTheme,
         fullWidthButton: true,
-        text: "Change Password",
+        text: AppLocalizations.of(context)!.change_password,
         onPressed: (() => context.read<ForgotPasswordCubit>().forgotPassword(
             username: _usernameController.text,
             password: _passwordController.text,
