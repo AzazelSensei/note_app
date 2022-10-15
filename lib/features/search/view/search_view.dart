@@ -33,8 +33,8 @@ class _SearchViewState extends State<SearchView> {
         iconTheme: const IconThemeData(color: Colors.white),
         title: TextField(
           controller: _search,
-          decoration: const InputDecoration(
-            hintText: 'Search',
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)!.search,
             border: InputBorder.none,
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
@@ -50,7 +50,7 @@ class _SearchViewState extends State<SearchView> {
         builder: (context, state) {
           if (state is SearchInitial) {
             return const Center(
-              child: Text('Search'),
+              child: Text(''),
             );
           } else if (state is SearchLoading) {
             return const Center(
