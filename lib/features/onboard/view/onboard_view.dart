@@ -1,7 +1,6 @@
 import 'package:note_app/common_libs.dart';
 import 'package:note_app/core/init/theme/colors_manager.dart';
 import 'package:note_app/features/onboard/widget/onboard_item_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnBoardView extends StatefulWidget {
   const OnBoardView({super.key});
@@ -85,10 +84,10 @@ class _OnBoardViewState extends State<OnBoardView> {
                   width: double.infinity,
                   child: GestureDetector(
                     onTap: () => context.router.pop(),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        'Get started',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.get_started,
+                        style: const TextStyle(
                           color: ColorManager.white,
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
