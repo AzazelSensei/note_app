@@ -1,5 +1,5 @@
 # APK
-https://github.com/AzazelSensei/note_app/blob/master/app-release.apk
+https://play.google.com/store/apps/details?id=com.crosspsoftware.privatenotes
 
 # note_app
 
